@@ -98,12 +98,12 @@ function searchForWord($, word) {
 
 function collectInternalLinks($) {
     var relativeLinks = $(".result h2 a"); 
-    var nextListings = $('#resultsCol .pn').parent();
+    var nextListings = $('.pagination a').last();
     console.log("Found " + relativeLinks.length + " job entries on page");
     relativeLinks.each(function() {
       if(typeof $(this).attr('href') !== 'undefined') {
         pagesToVisit.push(baseUrl + $(this).attr('href'));
-        console.log($(this).attr('href'));
+        //console.log($(this).attr('href'));
       }
     });
     if(typeof $(nextListings).attr('href') !== 'undefined') {
