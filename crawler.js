@@ -5,15 +5,15 @@ var jsdom = require("jsdom");
 
 var START_URL = "https://www.indeed.com/q-Front-End-Developer-l-Portland,-OR-jobs.html";
 var SEARCH_WORD = "bobaloo";
-var MAX_PAGES_TO_VISIT = 10;
+var MAX_PAGES_TO_VISIT = 100;
 var TERMS = ['javascript', 'css', 'html', 'angular'];
 var counter = {
-  'front-end': {
-    'javascript': 0,
-    'css': 0,
-    'html': 0,
-    'angular': 0
-  }
+    'front-end': {
+        'javascript': 0,
+        'css': 0,
+        'html': 0,
+        'angular': 0
+    }
 }
 
 var pagesVisited = {};
@@ -56,8 +56,8 @@ function visitPage(url, callback) {
             return;
         }
         // Parse the document body
-        /*var $ = cheerio.load('body h2');
-        var isWordFound = searchForWord($, SEARCH_WORD);
+        var $ = cheerio.load(body);
+        /*var isWordFound = searchForWord($, SEARCH_WORD);
         console.log($.parseHTML());
         if(isWordFound) {
           console.log('Word ' + SEARCH_WORD + ' found at page ' + url);
@@ -66,22 +66,28 @@ function visitPage(url, callback) {
           // In this short program, our callback is just calling crawl()
           callback();
         }*/
-        
+
         jsdom.env(
             url, ["http://code.jquery.com/jquery.js"],
             function(err, window) {
-                var elements = window.$(".summary").toArray();
+                var headers = window.$('.result a').toArray();
+                var paragraphs = window.$('.summary').toArray();
+                var lists = window.$('li').toArray();
+                var elements = paragraphs.concat(headers, lists);
                 console.log(elements);
                 TERMS.forEach(function(term) {
-                for(elem of elements) {
-                  if (elem.innerHTML.toLowerCase().includes(term)) {
-                    counter['front-end'][term]+= 1;
-                    console.log(term, ':', counter['front-end'][term]);
-                  }
-                }
-              });
+                    for (elem of elements) {
+                        if (elem.innerHTML.toLowerCase().includes(term)) {
+                            counter['front-end'][term] += 1;
+                            console.log(term, ':', counter['front-end'][term]);
+                        }
+                    }
+                });
             }
         );
+        collectInternalLinks($);
+        // In this short program, our callback is just calling crawl()
+        callback();
 
     });
 }
