@@ -6,6 +6,15 @@ var jsdom = require("jsdom");
 var START_URL = "https://www.indeed.com/q-Front-End-Developer-l-Portland,-OR-jobs.html";
 var SEARCH_WORD = "bobaloo";
 var MAX_PAGES_TO_VISIT = 10;
+var TERMS = ['javascript', 'css', 'html', 'angular'];
+var counter = {
+  'front-end': {
+    'javascript': 0,
+    'css': 0,
+    'html': 0,
+    'angular': 0
+  }
+}
 
 var pagesVisited = {};
 var numPagesVisited = 0;
@@ -57,18 +66,20 @@ function visitPage(url, callback) {
           // In this short program, our callback is just calling crawl()
           callback();
         }*/
-        var jsCounter = 0;
+        
         jsdom.env(
             url, ["http://code.jquery.com/jquery.js"],
             function(err, window) {
                 var elements = window.$(".summary").toArray();
                 console.log(elements);
+                TERMS.forEach(function(term) {
                 for(elem of elements) {
-                  if (elem.innerHTML.toLowerCase().includes('javascript')) {
-                    jsCounter++
-                    console.log(jsCounter);
+                  if (elem.innerHTML.toLowerCase().includes(term)) {
+                    counter['front-end'][term]+= 1;
+                    console.log(term, ':', counter['front-end'][term]);
                   }
                 }
+              });
             }
         );
 
