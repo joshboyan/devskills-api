@@ -4,8 +4,7 @@ var URL = require('url-parse');
 var jsdom = require("jsdom");
 
 var START_URL = "https://www.indeed.com/q-Front-End-Developer-l-Portland,-OR-jobs.html";
-var SEARCH_WORD = "bobaloo";
-var MAX_PAGES_TO_VISIT = 1000;
+var MAX_PAGES_TO_VISIT = 10000;
 var TERMS = ['javascript', 'css', 'html', 'angular'];
 var counter = {
     'front-end': {
@@ -30,13 +29,17 @@ function crawl() {
         console.log("Reached max limit of number of pages to visit.");
         return;
     }
+    if (pagesToVisit.length > 0) {
     var nextPage = pagesToVisit.pop();
+    //Right here we need to ensure everything is removed from the array
+    console.log(pagesToVisit);
     if (nextPage in pagesVisited) {
         // We've already visited this page, so repeat the crawl
         crawl();
     } else {
         // New page we haven't visited
         visitPage(nextPage, crawl);
+    }
     }
 }
 
@@ -49,6 +52,11 @@ function visitPage(url, callback) {
     console.log("Visiting page " + url);
     request(url, function(error, response, body) {
         // Check status code (200 is HTTP OK)
+        if(error) {
+          console.log(error);
+          callback();
+          return;
+        }
         console.log("Status code: " + response.statusCode);
         if (response.statusCode !== 200) {
             callback();
@@ -68,17 +76,18 @@ function visitPage(url, callback) {
                     for (elem of elements) {
                         if (elem.innerHTML.toLowerCase().includes(term)) {
                             counter['front-end'][term] += 1;
-                            console.log(term, ':', counter['front-end'][term]);
+                            //console.log(term, ':', counter['front-end'][term]);
                         }
                     }
                 });
                 console.log('totals:', counter['front-end']);
             }
         );
+        if($(".result h2 a")) {
         collectInternalLinks($);
+      }
         // In this short program, our callback is just calling crawl()
         callback();
-
     });
 }
 
@@ -92,8 +101,12 @@ function collectInternalLinks($) {
     var nextListings = $('#resultsCol .pn').parent();
     console.log("Found " + relativeLinks.length + " job entries on page");
     relativeLinks.each(function() {
+      if(typeof $(this).attr('href') !== 'undefined') {
         pagesToVisit.push(baseUrl + $(this).attr('href'));
-        console.log(pagesToVisit);
+        console.log($(this).attr('href'));
+      }
     });
+    if(typeof $(nextListings).attr('href') !== 'undefined') {
     pagesToVisit.unshift(baseUrl + $(nextListings).attr('href'));
+  }
 }
