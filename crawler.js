@@ -5,7 +5,7 @@ var jsdom = require("jsdom");
 
 var START_URL = "https://www.indeed.com/q-Front-End-Developer-l-Portland,-OR-jobs.html";
 var SEARCH_WORD = "bobaloo";
-var MAX_PAGES_TO_VISIT = 100;
+var MAX_PAGES_TO_VISIT = 1000;
 var TERMS = ['javascript', 'css', 'html', 'angular'];
 var counter = {
     'front-end': {
@@ -21,7 +21,6 @@ var numPagesVisited = 0;
 var pagesToVisit = [];
 var url = new URL(START_URL);
 var baseUrl = url.protocol + "//" + url.hostname;
-var wordCount = 0;
 
 pagesToVisit.push(START_URL);
 crawl();
@@ -57,24 +56,14 @@ function visitPage(url, callback) {
         }
         // Parse the document body
         var $ = cheerio.load(body);
-        /*var isWordFound = searchForWord($, SEARCH_WORD);
-        console.log($.parseHTML());
-        if(isWordFound) {
-          console.log('Word ' + SEARCH_WORD + ' found at page ' + url);
-        } else {
-          collectInternalLinks($);
-          // In this short program, our callback is just calling crawl()
-          callback();
-        }*/
-
         jsdom.env(
             url, ["http://code.jquery.com/jquery.js"],
             function(err, window) {
-                var headers = window.$('.result a').toArray();
-                var paragraphs = window.$('.summary').toArray();
+                var divs = window.$('div').toArray();
+                var paragraphs = window.$('p').toArray();
                 var lists = window.$('li').toArray();
-                var elements = paragraphs.concat(headers, lists);
-                console.log(elements);
+                var elements = paragraphs.concat(divs, lists);
+                //console.log(elements);
                 TERMS.forEach(function(term) {
                     for (elem of elements) {
                         if (elem.innerHTML.toLowerCase().includes(term)) {
@@ -83,6 +72,7 @@ function visitPage(url, callback) {
                         }
                     }
                 });
+                console.log('totals:', counter['front-end']);
             }
         );
         collectInternalLinks($);
@@ -98,9 +88,12 @@ function searchForWord($, word) {
 }
 
 function collectInternalLinks($) {
-    var relativeLinks = $(".result h2 a");
-    console.log("Found " + relativeLinks.length + " relative links on page");
+    var relativeLinks = $(".result h2 a"); 
+    var nextListings = $('#resultsCol .pn').parent();
+    console.log("Found " + relativeLinks.length + " job entries on page");
     relativeLinks.each(function() {
         pagesToVisit.push(baseUrl + $(this).attr('href'));
+        console.log(pagesToVisit);
     });
+    pagesToVisit.unshift(baseUrl + $(nextListings).attr('href'));
 }
