@@ -5,7 +5,7 @@ var jsdom = require("jsdom");
 
 var START_URL = "https://www.indeed.com/q-Front-End-Developer-l-Portland,-OR-jobs.html";
 var MAX_PAGES_TO_VISIT = 1000;
-var TERMS = [ 'accessibility', 'agile', 'ajax', 'apache', 'api', 'angular', 'aws', 'backbone', 'bem', 'browserify', 'cassandra', 'chai', 'codeignitor', 'command line', 'css', 'django', 'docker', 'ember', 'html', 'git', 'github', 'grunt', 'gulp', 'hbase', 'jasmine', 'javascript', 'jenkins', 'jekyll', 'jest', 'jira', 'jquery', 'json', 'karma', 'kohona', 'less', 'linux', 'marionette', 'mobile', 'mocha', 'mongo', 'nginx', 'mvc', 'node', 'npm', 'nosql', 'open source', 'oocss', 'perl', 'photoshop', 'php', 'postcss', 'protractor', 'puppet', 'python', 'rails', 'react', 'redux', 'ruby','sass', 'sinon', 'spa', 'sql', 'symfony', 'tomcat', 'ui', 'vagrant', 'vue', 'webpack', 'wireframes', 'wordpress', 'zend'];
+var TERMS = [ 'accessibility', 'agile', 'ajax', 'apache', 'api', 'angular', 'aws', 'backbone', 'bem', 'bootstrap', 'browserify', 'cassandra', 'chai', 'codeignitor', 'command line', 'css', 'django', 'docker', 'ember', 'foundation', 'git', 'github', 'grunt', 'gulp', 'hbase', 'html', 'jasmine', 'javascript', 'jenkins', 'jekyll', 'jest', 'jira', 'jquery', 'json', 'karma', 'kohona', 'less', 'linux', 'marionette', 'mobile', 'mocha', 'mongo', 'nginx', 'mvc', 'node', 'npm', 'nosql', 'open source', 'oocss', 'perl', 'photoshop', 'php', 'postcss', 'protractor', 'puppet', 'python', 'rails', 'react', 'redux', 'restful', 'ruby','sass', 'sinon', 'sql', 'symfony', 'tomcat', 'ui', 'vagrant', 'vue', 'webpack', 'wireframes', 'wordpress', 'zend'];
 var counter = {
     'front-end': {
       'accessibility': 0,
@@ -17,6 +17,7 @@ var counter = {
       'aws': 0,
       'backbone': 0,
       'bem': 0,
+      'bootstrap': 0,
       'browserify': 0,
       'cassandra': 0,
       'chai': 0,
@@ -26,12 +27,13 @@ var counter = {
       'django': 0,
       'docker': 0,
       'ember': 0,
-      'html': 0,
+      'foundation': 0,
       'git': 0,
       'github': 0,
       'grunt': 0,
       'gulp': 0,
       'hbase': 0,
+      'html': 0,
       'jasmine': 0,
       'javascript': 0,
       'jekyll': 0,
@@ -65,12 +67,12 @@ var counter = {
       'rails':0,
       'react': 0,
       'redux': 0,
+      'restful': 0,
       'ruby': 0,
       'sass': 0,
       'saas': 0,
       'sinon': 0,
-      'symphony': 0,
-      'spa': 0,
+      'symfony': 0,
       'sql': 0,
       'tomcat': 0,
       'ui': 0,
