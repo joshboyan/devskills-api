@@ -29,25 +29,21 @@ var findDbCounter = function(db, callback) {
 var otherStuff = function() {
     //console.log(counter);
 }
+var day = new Date().getDay();
+var dayArr = ['Sunday', 'Monday', 'Tuesday', 'Wednesay', 'Thursday', 'Friday', 'Saturday'];
 var moreStuff = function() {
-    var frontEnd = counter[0]['front-end'];
-
-    function sortObject(obj) {
-        var arr = [];
-        var prop;
-        for (prop in obj) {
-            if (obj.hasOwnProperty(prop)) {
-                arr.push({
-                    'key': prop,
-                    'value': obj[prop]
-                });
-            }
-        }
-        arr.sort(function(a, b) {
-            return a.value - b.value;
-        });
-        return arr;
+    function compare(a, b) {
+        if (a.value < b.value)
+            return 1;
+        if (a.value > b.value)
+            return -1;
+        return 0;
     }
-    var arr = sortObject(frontEnd);
-    console.log(arr);
+
+    counter = counter[0]['front-end'].sort(compare);
+    //console.log(counter.key + ',' + counter.value);
+    console.log('Top 10 Skills on Indeed.com for', dayArr[day] + '\n');
+    for (var i = 0; i < 20; i++) {
+        console.log( (i + 1) + ') ' + counter[i].name, counter[i].value + ' mentions' + '\n');
+    }
 }

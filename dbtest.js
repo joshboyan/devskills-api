@@ -2,84 +2,28 @@ var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 
 var counter = {
-    'front-end': {
-      'accessibility': 0,
-      'agile': 0,
-      'ajax': 0,
-      'apache': 0,
-      'api': 0,
-      'angular': 0,
-      'aws': 0,
-      'backbone': 0,
-      'bem': 0,
-      'bootstrap': 0,
-      'browserify': 0,
-      'cassandra': 0,
-      'chai': 0,
-      'codeignitor': 0,
-      'command line': 0,
-      'css': 0,
-      'django': 0,
-      'docker': 0,
-      'ember': 0,
-      'foundation': 0,
-      'git': 0,
-      'github': 0,
-      'grunt': 0,
-      'gulp': 0,
-      'hbase': 0,
-      'html': 0,
-      'jasmine': 0,
-      'javascript': 0,
-      'jekyll': 0,
-      'jenkins': 0,
-      'jest': 0,
-      'jira': 0,
-      'jquery': 0,
-      'json': 0,
-      'karma': 0,
-      'kohana': 0,
-      'less': 0,
-      'linux': 0,
-      'marionette': 0,
-      'mobile': 0,
-      'mocha': 0,
-      'mongo': 0,
-      'mvc': 0,
-      'nginx': 0,
-      'node': 0,
-      'nosql': 0,
-      'npm': 0,
-      'oocss': 0,
-      'open source': 0,
-      'photoshop': 0,
-      'php': 0,
-      'perl': 0,
-      'postcss': 0,
-      'protractor': 0,
-      'puppet': 0,
-      'python': 0,
-      'rails':0,
-      'react': 0,
-      'redux': 0,
-      'restful': 0,
-      'ruby': 0,
-      'sass': 0,
-      'saas': 0,
-      'sinon': 0,
-      'symfony': 0,
-      'sql': 0,
-      'tomcat': 0,
-      'ux': 0,
-      'vagrant': 0,
-      'vue': 0,
-      'webpack': 0,
-      'wireframes': 0,
-      'wordpress': 0,
-      'zend': 0  
-    }
-}
+    'front-end': [
 
+        { key: 'react', value: 0 },
+        { key: 'redux', value: 0 },
+        { key: 'restful', value: 0 },
+        { key: 'ruby', value: 0 },
+        { key: 'sass', value: 0 },
+
+    ]
+}
+var word = 'react';
+counter['front-end'].forEach(skill => {
+    	console.log(skill.key);
+        if (word === skill.key) {
+            skill.value += 1;
+           
+        }
+    
+});
+counter['front-end'].value += 1;
+console.log(counter);
+/*
 // Connection URL
 var url = 'mongodb://localhost:27017/crawlerTest';
 
@@ -128,4 +72,4 @@ var updateDocuments = function(db, callback) {
 			console.log('Updated the document with the field a equal to 2');
 			callback(result);
 		});
-}
+}*/
