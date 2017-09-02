@@ -39,11 +39,11 @@ var moreStuff = function() {
             return -1;
         return 0;
     }
-
+    console.log(counter[0]['date']);
     counter = counter[0]['front-end'].sort(compare);
     //console.log(counter.key + ',' + counter.value);
     console.log('Top 10 Skills on Indeed.com for', dayArr[day] + '\n');
-    for (var i = 0; i < 20; i++) {
+    for (var i = 0; i < 50; i++) {
         console.log( (i + 1) + ') ' + counter[i].name, counter[i].value + ' mentions' + '\n');
     }
 }

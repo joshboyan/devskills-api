@@ -10,6 +10,7 @@ var START_URL = "https://www.indeed.com/q-Front-End-Developer-l-Portland,-OR-job
 var MAX_PAGES_TO_VISIT = 500;
 //var TERMS = ['accessibility', 'agile', 'ajax', 'apache', 'api', 'angular', 'aws', 'backbone', 'bem', 'bootstrap', 'browserify', 'cassandra', 'chai', 'codeignitor', 'command line', 'css', 'django', 'docker', 'ember', 'foundation', 'git', 'github', 'grunt', 'gulp', 'hbase', 'html', 'jasmine', 'javascript', 'jenkins', 'jekyll', 'jest', 'jira', 'jquery', 'json', 'karma', 'kohona', 'less', 'linux', 'marionette', 'mobile', 'mocha', 'mongo', 'nginx', 'mvc', 'node', 'npm', 'nosql', 'open source', 'oocss', 'perl', 'photoshop', 'php', 'postcss', 'protractor', 'puppet', 'python', 'rails', 'react', 'redux', 'restful', 'ruby', 'sass', 'sinon', 'sql', 'symfony', 'tomcat', 'ui', 'vagrant', 'vue', 'webpack', 'wireframes', 'wordpress', 'zend'];
 var counter = {
+    'date' : new Date(),
     'front-end': [
         { 'name': 'accessibility', 'value': 0 },
         { 'name': 'agile', 'value': 0 },
@@ -29,6 +30,7 @@ var counter = {
         { 'name': 'chai', 'value': 0 },
         { 'name': 'codeignitor', 'value': 0 },
         { 'name': 'command line', 'value': 0 },
+        { 'name': 'd3', 'value': 0 },
         { 'name': 'django', 'value': 0 },
         { 'name': 'docker', 'value': 0 },
         { 'name': 'ecma', 'value': 0 },
@@ -66,6 +68,7 @@ var counter = {
         { 'name': 'photoshop', 'value': 0 },
         { 'name': 'php', 'value': 0 },
         { 'name': 'perl', 'value': 0 },
+        { 'name': 'polymer', 'value': 0 },
         { 'name': 'postcss', 'value': 0 },
         { 'name': 'protractor', 'value': 0 },
         { 'name': 'puppet', 'value': 0 },
