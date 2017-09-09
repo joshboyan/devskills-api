@@ -24,6 +24,7 @@
     "url-parse": "^1.0.5"
   },
   "devDependencies": {
+    "hashtag-count": "^1.1.0",
     "jsdom": "^9.11.0"
   }
 }
