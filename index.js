@@ -1,16 +1,16 @@
+var config = require('./config');
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
-var url = 'mongodb://localhost:27017/crawlerTest';
 var counter;
 // Use connect method to connect to the server
-MongoClient.connect(url, function(err, db) {
+MongoClient.connect(config.dbURI, function(err, db) {
     assert.equal(null, err);
     console.log("Connected successfully to server");
 
 
     findDbCounter(db, function() {
         otherStuff();
-        moreStuff();
+        rankResults();
         db.close();
     });
 });
@@ -31,7 +31,7 @@ var otherStuff = function() {
 }
 var day = new Date().getDay();
 var dayArr = ['Sunday', 'Monday', 'Tuesday', 'Wednesay', 'Thursday', 'Friday', 'Saturday'];
-var moreStuff = function() {
+function rankResults() {
     function compare(a, b) {
         if (a.value < b.value)
             return 1;
