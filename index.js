@@ -1,11 +1,11 @@
-var stackOverflow = require('./stack');
+var stackOverflow = require('./stackOverflow');
 var twitter = require('./twitter');
 
-
-
 stackOverflow.then(function(skillCounter){
-  console.log(skillCounter);
+  return twitter(skillCounter);  
+}).then(function(updatedSkills){
+  console.log(updatedSkills);
 }).catch(function(err){
-  console.log(err);
+  console.error(err);
 })
 
