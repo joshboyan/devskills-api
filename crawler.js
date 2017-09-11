@@ -1,22 +1,21 @@
 "use strict";
-var counter = require('./counter');
-var dataPush = require('./database');
-var request = require('request');
-var cheerio = require('cheerio');
-var URL = require('url-parse');
-var jsdom = require("jsdom");
+const counter = require('./counter');
+const dataPush = require('./database');
+const request = require('request');
+const cheerio = require('cheerio');
+const URL = require('url-parse');
+const jsdom = require("jsdom");
 
-var START_URL = "https://www.indeed.com/q-Front-End-Developer-l-Portland,-OR-jobs.html";
-var MAX_PAGES_TO_VISIT = 5;
+const START_URL = "https://www.indeed.com/q-developer-l-remote-jobs.html";
+const MAX_PAGES_TO_VISIT = 10;
 
-var pagesVisited = {};
-var numPagesVisited = 0;
-var pagesToVisit = [];
-var url = new URL(START_URL);
-var baseUrl = url.protocol + "//" + url.hostname;
-var day = 86400000; // Milliseconds in a day
+const pagesVisited = {};
+let numPagesVisited = 0;
+const pagesToVisit = [];
+const url = new URL(START_URL);
+const baseUrl = url.protocol + "//" + url.hostname;
+const day = 86400000; // Milliseconds in a day
 
-//Run the script once every 24 hours
 pagesToVisit.push(START_URL);
 crawl();
 
@@ -29,7 +28,7 @@ function crawl() {
     }
     // Keep crawling while we have pages in our queue
     if (pagesToVisit.length > 0) {
-        var nextPage = pagesToVisit.pop();
+        const nextPage = pagesToVisit.pop();
         //Right here we need to ensure everything is removed from the array
         //console.log(pagesToVisit);
         if (nextPage in pagesVisited) {
@@ -64,46 +63,49 @@ function visitPage(url, callback) {
             callback();
             return;
         }
-        // Parse the document body
-        var $ = cheerio.load(body);
+        // Parse the document body to pass to collectInternalLinks()
+        const $ = cheerio.load(body);
         // Move to next page if the current page body is undefined.
         if (typeof $ === 'undefined') {
             console.log('Page body is undefined');
+            // Callback is calling crawl()
             callback();
             return;
         }
+        console.log('DOM loaded to cheerio');
         jsdom.env(
             url, ["http://code.jquery.com/jquery.js"],
             function(err, window) {
                 // All of the nodes that contain text we would like to scrape
-                //var divs = window.$('div').toArray();
-                var paragraphs = window.$('p').toArray();
-                var lists = window.$('li').toArray();
-                var elements = paragraphs.concat(paragraphs, lists);
-                //console.log(elements);
+                //const divs = window.$('div').toArray();
+                const paragraphs = window.$('p').toArray();
+                const lists = window.$('li').toArray();
+                const elements = paragraphs.concat(paragraphs, lists);
+                console.log('Elements have been collected');
                 counter['front-end'].forEach(skill => {
-                    for (var elem of elements) {
+                    for (const elem of elements) {
                         if (elem.innerHTML.toLowerCase().includes(skill.name)) {
                             skill.value += 1;
                             //console.log(term, ':', counter['front-end'][term]);
                         }
                     }
                 });
-                //console.log('totals:', counter['front-end']);
+                console.log('Skills have been counted');
             }
         );
         // Collect all the links to job postings
         if ($(".result h2 a")) {
+            console.log('Calling collectInternalLinks')
             collectInternalLinks($);
         }
-        // In this short program, our callback is just calling crawl()
+        // Callback is calling crawl()
         callback();
     });
 }
 
 function collectInternalLinks($) {
-    var relativeLinks = $(".result h2 a");
-    var nextListings = $('.pagination a').last();
+    const relativeLinks = $(".result h2 a");
+    const nextListings = $('.pagination a').last();
     console.log("Found " + relativeLinks.length + " job entries on page");
     relativeLinks.each(function() {
         if (typeof $(this).attr('href') !== 'undefined') {
