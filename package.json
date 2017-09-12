@@ -4,7 +4,7 @@
   "description": "Crawler that scrapes indeed.com for web developer keywords",
   "main": "crawler.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -30,6 +30,8 @@
     "chai": "^4.1.2",
     "hashtag-count": "^1.1.0",
     "jsdom": "^9.11.0",
-    "mocha": "^3.5.3"
+    "mocha": "^3.5.3",
+    "morgan": "^1.8.2",
+    "nodemon": "^1.12.0"
   }
 }
