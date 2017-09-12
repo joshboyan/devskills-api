@@ -1,5 +1,8 @@
 const express = require('express');
 const resourcesRouter = express.Router();
+const config = require('../../config');
+const MongoClient = require('mongodb').MongoClient;
+const assert = require('assert');
 
 // Get all the skills resources
 resourcesRouter.get('/', (req, res) => {
@@ -10,12 +13,12 @@ resourcesRouter.get('/', (req, res) => {
 resourcesRouter.route('/:skill')
 
 	// Get the resources for a certain skill
-    .get('/:skill', (req, res) => {
+    .get((req, res) => {
 
     })
 
 	// Add a resource for a skill
-	.post('/:skill', (req, res) => {
+	.post((req, res) => {
 
 	});
 

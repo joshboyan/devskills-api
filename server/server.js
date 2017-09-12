@@ -1,3 +1,4 @@
+'use strict';
 const config = require('../config');
 const express = require('express');
 const app = express();
@@ -24,6 +25,9 @@ app.use((err, req, res, next) => {
 		console.log(err);
 		res.status(500).send(err);
 	}
-})	
+});
+
 app.listen(port, 
-  	console.log('API listening on port:', port))
+  	console.log('API listening on port:', port));
+
+module.exports = app;

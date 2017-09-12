@@ -3,7 +3,7 @@ const skillsRouter = express.Router();
 
 // Get all the data
 skillsRouter.get('/', (req, res) => {
-  
+    
 });
 
 // Get the latest data added

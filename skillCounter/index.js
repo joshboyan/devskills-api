@@ -1,3 +1,4 @@
+'use strict';
 const stackOverflow = require('./stackOverflow');
 const twitter = require('./twitter');
 const crawler = require('./crawler');
