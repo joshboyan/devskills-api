@@ -1,8 +1,8 @@
-const stackOverflow = require('./stackOverflow');
-const twitter = require('./twitter');
-const crawler = require('./crawler');
-const databasePush = require('./databasePush');
-const email = require('./email');
+const stackOverflow = require('./skillCounter/stackOverflow');
+const twitter = require('./skillCounter/twitter');
+const crawler = require('./skillCounter/crawler');
+const databasePush = require('./skillCounter/databasePush');
+const email = require('./skillCounter/email');
 
 // Create a counter object and get top 100 tags and counts from stackoverflow
 stackOverflow.then(skillCounter => {
