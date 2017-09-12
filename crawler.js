@@ -1,8 +1,13 @@
+/**
+ * This file scrapes Indeed and adss how many mentions of each tag
+ * it comes across to the twitterSkills counter object. Some tags 
+ * like 'c' or 'r' yield false positives and need handling.
+ */
 const request = require('request');
 const cheerio = require('cheerio');
 const URL = require('url-parse');
 const jsdom = require('jsdom');
-const email = require('email');
+const email = require('./email');
 
 const crawler = twitterSkills => {
     'use strict';

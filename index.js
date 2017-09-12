@@ -1,7 +1,7 @@
 const stackOverflow = require('./stackOverflow');
 const twitter = require('./twitter');
 const crawler = require('./crawler');
-const databasePush = require('./databasepush');
+const databasePush = require('./databasePush');
 const email = require('./email');
 
 // Create a counter object and get top 100 tags and counts from stackoverflow

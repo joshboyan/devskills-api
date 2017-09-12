@@ -1,8 +1,11 @@
+/**
+ * This file connects to mongoDB and pushes the completed devskills object
+ */
 const config = require('./config');
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 
-const dataPush = devSkills => {
+const databasePush = devSkills => {
     'use strict';
     
     console.log('This got passed to database.js: ', devSkills.length);
@@ -24,6 +27,7 @@ const dataPush = devSkills => {
             date: new Date(),
             skills: devSkills
         };
+
         collection.insert(formattedSkills, (err, result) => {
             assert.equal(err, null);
             assert.equal(1, result.result.n);
@@ -33,4 +37,4 @@ const dataPush = devSkills => {
     }
 }
 
-module.exports = dataPush;
+module.exports = databasePush;
