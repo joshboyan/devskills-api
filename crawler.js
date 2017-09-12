@@ -1,19 +1,21 @@
 const request = require('request');
 const cheerio = require('cheerio');
 const URL = require('url-parse');
-const jsdom = require("jsdom");
+const jsdom = require('jsdom');
+const email = require('email');
 
 const crawler = twitterSkills => {
-    "use strict";
-    return new Promise((resolve, reject) => {
-        const START_URL = "https://www.indeed.com/q-developer-l-remote-jobs.html";
-        const MAX_PAGES_TO_VISIT = 10;
+    'use strict';
 
+    return new Promise((resolve, reject) => {
+
+        const START_URL = 'https://www.indeed.com/q-developer-l-remote-jobs.html';
+        const MAX_PAGES_TO_VISIT = 10;
         const pagesVisited = {};
         let numPagesVisited = 0;
         const pagesToVisit = [];
         const url = new URL(START_URL);
-        const baseUrl = url.protocol + "//" + url.hostname;
+        const baseUrl = url.protocol + '//' + url.hostname;
         const day = 86400000; // Milliseconds in a day
 
         pagesToVisit.push(START_URL);
@@ -23,7 +25,7 @@ const crawler = twitterSkills => {
             // Something has gone wirng if we are crawling this many pages so stop
             if (numPagesVisited >= MAX_PAGES_TO_VISIT) {
                 resolve(twitterSkills);
-                console.log("Reached max limit of number of pages to visit.");
+                console.log('Reached max limit of number of pages to visit.');
                 return;
             }
             // Keep crawling while we have pages in our queue
@@ -50,16 +52,18 @@ const crawler = twitterSkills => {
             numPagesVisited++;
             console.log(numPagesVisited);
             // Make the request
-            console.log("Visiting page " + url);
-            request(url, function(error, response, body) {
+            console.log('Visiting page ' + url);
+            request(url, function(err, res, body) {
                 // Check status code (200 is HTTP OK) 
-                if (error) {
-                    console.log(error);
+                if (err) {
+                    email('There was a request error crawling indeed', err);
+                    console.log(err);
                     callback();
                     return;
                 }
-                if (response.statusCode !== 200) {
-                    console.log('Bad response. Status Code:', response.statusCode)
+                if (res.statusCode !== 200) {
+                    email('One of the response codes was bad crawling indeed', err);
+                    console.log('Bad response. Status Code:', res.statusCode)
                     callback();
                     return;
                 }
@@ -75,7 +79,8 @@ const crawler = twitterSkills => {
                 console.log('DOM loaded to cheerio');
                 try {
                     jsdom.env(
-                        url, ["http://code.jquery.com/jquery.js"],
+                        url, ['http://code.jquery.com/jquery.js'],
+                        
                         function(err, window) {
                             if(window.$ !== 'undefined') {
                             // All of the nodes that contain text we would like to scrape
@@ -84,6 +89,7 @@ const crawler = twitterSkills => {
                             const lists = window.$('li').toArray();
                             const elements = paragraphs.concat(paragraphs, lists);
                             console.log('Elements have been collected');
+                           
                             twitterSkills.forEach(skill => {
                                 for (const elem of elements) {
                                     if (elem.innerHTML.toLowerCase().includes(skill.name)) {
@@ -95,11 +101,12 @@ const crawler = twitterSkills => {
                             }
                         }
                     );
-                } catch(err) {
+                } catch(err) {                    
+                    email('There was a problem parsing one of the DOM bodies crawling indeed', err);
                     console.error('There was a problem parsing the DOM body', err)
                 } finally {
                     // Collect all the links to job postings
-                    if ($(".result h2 a")) {
+                    if ($('.result h2 a')) {
                         console.log('Calling collectInternalLinks')
                         collectInternalLinks($);
                     }
@@ -110,15 +117,17 @@ const crawler = twitterSkills => {
         }
 
         function collectInternalLinks($) {
-            const relativeLinks = $(".result h2 a");
+            const relativeLinks = $('.result h2 a');
             const nextListings = $('.pagination a').last();
-            console.log("Found " + relativeLinks.length + " job entries on page");
-            relativeLinks.each(function() {
+            console.log('Found ' + relativeLinks.length + ' job entries on page');
+            
+            relativeLinks.each(function() {                
                 if (typeof $(this).attr('href') !== 'undefined') {
                     pagesToVisit.push(baseUrl + $(this).attr('href'));
                     //console.log($(this).attr('href'));
                 }
             });
+
             if (typeof $(nextListings).attr('href') !== 'undefined') {
                 pagesToVisit.unshift(baseUrl + $(nextListings).attr('href'));
             }

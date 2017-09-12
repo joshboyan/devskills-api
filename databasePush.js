@@ -3,11 +3,13 @@ const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 
 const dataPush = devSkills => {
+    'use strict';
+    
     console.log('This got passed to database.js: ', devSkills.length);
     // Use connect method to connect to the server
     MongoClient.connect(config.dbURI, (err, db) => {
         assert.equal(null, err);
-        console.log("Connected successfully to server");
+        console.log('Connected successfully to server');
 
         insertCounter(db, function() {
 
