@@ -17,6 +17,13 @@ app.use(bodyParser.json());
 // API routes
 app.use('/skills', skillsRouter);
 app.use('/resouces', resoucesRouter)
-	
+
+// Log errors
+app.use((err, req, res, next) => {
+	if(err){
+		console.log(err);
+		res.status(500).send(err);
+	}
+})	
 app.listen(port, 
   	console.log('API listening on port:', port))
