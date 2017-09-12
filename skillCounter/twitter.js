@@ -3,7 +3,7 @@
  * add the data collected from the Twitter streaming API.
  * https://www.npmjs.com/package/hashtag-count
  */
-const config = require('./config');
+const config = require('../config');
 const HashtagCount = require('hashtag-count');
 const email = require('./email');
 

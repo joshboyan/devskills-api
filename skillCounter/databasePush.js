@@ -1,7 +1,7 @@
 /**
  * This file connects to mongoDB and pushes the completed devskills object
  */
-const config = require('./config');
+const config = require('../config');
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 

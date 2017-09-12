@@ -4,7 +4,7 @@
  * completed by the twitter.js and crawler.js.
  * https://www.npmjs.com/package/stackexchange
  */
-const config = require('./config');
+const config = require('../config');
 const stackexchange = require('stackexchange');
 const email = require('./email');
 

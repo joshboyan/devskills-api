@@ -1,4 +1,4 @@
-var config = require('./config');
+var config = require('../config');
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var counter;

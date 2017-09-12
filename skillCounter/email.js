@@ -2,7 +2,7 @@
  * This module sets up the error message emails for when the program is 
  * running on the server unsupervised.
  */
-const config = require('./config');
+const config = require('../config');
 const nodemailer = require('nodemailer');
 
 const email = (message, err) => {
