@@ -5,10 +5,11 @@
  * https://www.npmjs.com/package/stackexchange
  */
 const config = require('./config');
-const stackexchange = require("stackexchange")
+const stackexchange = require('stackexchange');
+const databasePush = require('./databasePush');
 
 //Create a promise to initialize the chain
-const stackOverflow = new Promise((resolve, reject)=> {
+const stackOverflow = new Promise((resolve, reject) => {
   'use strict';  
     
   const skillCounter = []; 
@@ -39,7 +40,8 @@ const stackOverflow = new Promise((resolve, reject)=> {
 
       skillCounter.push(skill);
     })
-
+    console.log('Got the Skills: ', skillCounter.length);
+    //databasePush(skillCounter);
     resolve(skillCounter);
 
   });

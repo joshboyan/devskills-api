@@ -26,10 +26,10 @@ const twitter = skillCounter => {
     });
     
     // Hashtag tallies for each time interval will be added to the results object. 
-    const interval = '5 seconds';
+    const interval = '10 seconds';
 
     // Stop running after this amount of time has passed. 
-    const limit = '5 seconds';
+    const limit = '10 seconds';
     
     // Called after time limit has been reached. 
     const finishedCb = (err, results) => {
@@ -47,7 +47,7 @@ const twitter = skillCounter => {
           skill.twitter = innerResults[skill.name];
           return skill;
         });
-      
+      console.log('Add in twitter skills', updatedSkills);
       // Move on in promise
       resolve(updatedSkills);
     };
