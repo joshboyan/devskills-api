@@ -1,16 +1,11 @@
 const express = require('express');
 const skillsRouter = express.Router();
 const config = require('../../config');
-const MongoClient = require('mongodb').MongoClient;
-const assert = require('assert');
+
 
 // Get all the data
 skillsRouter.get('/', (req, res) => {
-    MongoClient.connect(config.dbURI, (err, db) => {
-        assert.equal(null, err);
-        console.log('Connected successfully to server');
-        res.json(db.collection.find());
-    });
+    
 });
 
 // Get the latest data added

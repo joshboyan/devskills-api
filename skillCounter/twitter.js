@@ -27,16 +27,16 @@ const twitter = skillCounter => {
 		});
 		
 		// Hashtag tallies for each time interval will be added to the results object. 
-		const interval = '30 minutes';
+		const interval = '30 seconds';
 
 		// Stop running after this amount of time has passed. 
-		const limit = '30 minutes';
+		const limit = '30 seconds';
 		
 		// Called after time limit has been reached. 
 		const finishedCb = (err, results) => {
 		if (err) {
 			email('There was a problem listening to the twitter streaming API', err);
-			throw err;      
+			console.error(err);      
 		}
 			// Get the first key in the results object
 			let innerResults;

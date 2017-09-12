@@ -48,6 +48,7 @@ const databasePush = devSkills => {
     skill.save(function(err){
       if(err){
         res.send(err);
+        throw err;
       } else {
         res.json({message:"Skill added!",
                   skill: skill});

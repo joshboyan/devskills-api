@@ -15,7 +15,7 @@ const crawler = twitterSkills => {
     return new Promise((resolve, reject) => {
 
         const START_URL = 'https://www.indeed.com/q-developer-l-remote-jobs.html';
-        const MAX_PAGES_TO_VISIT = 300;
+        const MAX_PAGES_TO_VISIT = 3;
         const pagesVisited = {};
         let numPagesVisited = 0;
         const pagesToVisit = [];
