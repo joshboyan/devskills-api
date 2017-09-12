@@ -4,7 +4,10 @@
   "description": "Crawler that scrapes indeed.com for web developer keywords",
   "main": "crawler.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha && cd react-ui && npm test",
+    "start": "cd react-ui && npm start",
+    "server": "nodemon server/server.js",
+    "counter": "node skillCounter/index.js"
   },
   "repository": {
     "type": "git",
