@@ -1,0 +1,11 @@
+.btn{
+  width: 100%;
+  border-bottom: transparent;
+  border-radius: 2px 2px 0 0;
+}
+
+.panel {
+  border-top: transparent;
+  border-radius: 0 0 2px 2px;
+  box-shadow: 5px 5px #BDBDBD;
+}
