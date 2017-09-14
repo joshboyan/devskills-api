@@ -1,25 +1,39 @@
 import React from 'react';
 import { Row, Col, Button, Panel } from 'react-bootstrap';
-import FaArrowDown from 'react-icons/lib/fa/arrow-down';
-import FaArrowUp from 'react-icons/lib/fa/arrow-up';
+//import FaArrowDown from 'react-icons/lib/fa/arrow-down';
+//import FaArrowUp from 'react-icons/lib/fa/arrow-up';
 import FaPlus from 'react-icons/lib/fa/plus';
+import FaMinus from 'react-icons/lib/fa/minus';
 
 class Skill extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: true
+      open: false
     };
   }
 
   render() {
+    const divStyle = {      
+      transition: 'width',
+      transitionDuration: '346.445ms',
+      transitionDelay: '3.5545ms'
+    }
+    const openStyle = {
+      float: 'right',
+      width: '200%',
+      transition: 'width',
+      transitionDuration: '346.445ms',
+      transitionDelay: '3.5545ms'
+    }
+
     const buttonStyle = {
       display: 'flex',
       justifyContent: 'space-between',
       width: '100%',
       backgroundColor: '#DFDFDF',
       color: '#757575',
-      boderColor: '#757575',
+      boderColor: '#BDBDBD',
       borderBottom: 'transparent',
       borderRadius: '2px 2px 0 0'
     }
@@ -29,14 +43,14 @@ class Skill extends React.Component {
     }
     const panelStyle = { 
       backgroundColor: '#DFDFDF',
-      color: '#757575',     
-      boderColor: '#757575',
+      color: '#757575',
+      boderColor: '#BDBDBD',
       borderTop: 'transparent',
       borderRadius: '0 0 2px 2px'
     }
     const {name, indeed, twitter, stackOverflow} = this.props.props
     return (
-      <div>
+      <div style= {this.state.open ? openStyle : divStyle}>
         <Button 
           onClick={ ()=> this.setState({ open: !this.state.open })}
           style = {buttonStyle}>
@@ -50,7 +64,11 @@ class Skill extends React.Component {
             trending: 
             {/* this.state.trending < 1 ? < FaArrowDown />: <FaArrowUp />*/}
           </p>
-          <p style={moreStyle}>more <FaPlus /></p>
+          <p style={moreStyle}>
+            {this.state.open ?
+              <span>less <FaMinus /> </span> : 
+              <span>more <FaPlus /></span>  }
+          </p>
           </div>
         </Button>
         <Panel 
