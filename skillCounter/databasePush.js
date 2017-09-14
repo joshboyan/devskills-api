@@ -37,21 +37,21 @@ const databasePush = devSkills => {
     }); 
     
     // Import model
-    const Skill = require('../server/models/skill');
+    const Count = require('../server/models/count');
 
     // Create a skill entry
-    const skill = new Skill();
-    skill.date = new Date();
-    skill.skills = devSkills;
+    const count = new Count();
+    count.date = new Date();
+    count.counts = devSkills;
 
     // Add to database
-    skill.save(function(err){
+    count.save(function(err){
       if(err){
         res.send(err);
         throw err;
       } else {
-        res.json({message:"Skill added!",
-                  skill: skill});
+        res.json({message:"Skill count added!",
+                  count: count});
       }
     });
 

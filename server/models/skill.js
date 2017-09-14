@@ -1,18 +1,22 @@
-const mongoose = require('mongoose');
+var mongoose = require('mongoose');
 
 const SkillSchema = new mongoose.Schema({
-	date: { 
-		type: Date, 
-		default: Date.now,
-		required: true,
-		unique: true 
-	},
-	skills: {
-		type: [],
-		required: true
-	}
+  name : {
+    type: String,
+    required: true
+  },
+  stackOverflow : {
+    type: number, 
+    required: true
+  },
+  indeed : {
+    type: number, 
+    required: true
+  },
+  twitter : {
+    type: number, 
+    required: true
+  }
 });
 
 const SkillModel = mongoose.model('skills', SkillSchema);
-
-module.exports = SkillModel;
