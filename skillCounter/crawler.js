@@ -87,7 +87,7 @@ const crawler = twitterSkills => {
                         url, ['http://code.jquery.com/jquery.js'],
                         
                         function(err, window) {
-                            if(window.$ !== 'undefined') {
+                            if(window && window.$ !== 'undefined') {
                             // All of the nodes that contain text we would like to scrape
                             //const divs = window.$('div').toArray();
                             const paragraphs = window.$('p').toArray();

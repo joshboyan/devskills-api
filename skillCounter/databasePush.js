@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 const databasePush = devSkills => {
     'use strict';
 
-    mongoose.connnect(config.dbURI, {
+    mongoose.connect(config.dbURI, {
         useMongoClient: true
     });
 
@@ -39,24 +39,20 @@ const databasePush = devSkills => {
     // Import model
     const Count = require('../server/models/count');
 
-    // Create a skill entry
+    // Create a count entry
     const count = new Count();
     count.date = new Date();
-    count.counts = devSkills;
+    count.skills = devSkills;
 
     // Add to database
     count.save(function(err){
       if(err){
-        res.send(err);
+        console.error(err);
         throw err;
       } else {
-        res.json({message:"Skill count added!",
-                  count: count});
+        console.log("Skill count added!", count);
       }
-    });
-
-    console.log('This got passed to database.js: ', devSkills.length);
-    
+    });    
 }
 
 module.exports = databasePush;

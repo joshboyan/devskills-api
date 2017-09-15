@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Skill = require('./skill');
 
 const CountSchema = new mongoose.Schema({
 	date: { 
@@ -8,11 +9,11 @@ const CountSchema = new mongoose.Schema({
 		unique: true 
 	},
 	skills: {
-		type: [],
+		type: [Skill],
 		required: true
 	}
 });
 
 const CountModel = mongoose.model('counts', CountSchema);
 
-module.exports = SkillModel;
+module.exports = CountModel;

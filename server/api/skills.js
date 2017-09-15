@@ -1,11 +1,17 @@
 const express = require('express');
 const skillsRouter = express.Router();
 const config = require('../../config');
-
+const Count = require('../models/count');
 
 // Get all the data
 skillsRouter.get('/', (req, res) => {
-    
+    Count.find({}, (error, counts) => {
+      if(err) {
+        console.log(err);
+      } else {
+        res.json(counts);
+      }
+    })
 });
 
 // Get the latest data added

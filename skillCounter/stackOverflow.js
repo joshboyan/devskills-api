@@ -33,7 +33,7 @@ const stackOverflow = new Promise((resolve, reject) => {
 		// Create an array of objects form the list of tags to
 		// contain all the data aggregated
 		results.items.map(result => {
-		const skill = {
+		let skill = {
 			name : result.name,
 			stackOverflow : result.count,
 			indeed : 0,
@@ -42,7 +42,7 @@ const stackOverflow = new Promise((resolve, reject) => {
 
 		skillCounter.push(skill);
 		})
-		console.log('Got the Skills: ', skillCounter.length);
+		console.log('Got the Skills: ', skillCounter);
 		resolve(skillCounter);
 	});
 });
