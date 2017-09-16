@@ -1,0 +1,30 @@
+[
+  {
+    "route": null,
+    "description": "This is a RESTful API for accessing the latest trends in developer skills. This information is and aggregate of three sources. The Stack Exchange API that gives the latest data on tags used to mark questions. Listening to Twitters streaming API for how many times each of the top tags on Stack OVerflow are hashtagged. Finally a node crawler scrapes the first 500 job entries for 'Remote Developer' and counts how often each of these search terms comes up. The main reason this API is built is to power the DevSkills app but it is open for anyone to use. If you come up with a novel way to use or mashup up this information I would love to hear about it. Any issues should be opened on https://gitub.com/joshboyan/crawler/issues."
+  },
+  {
+    "route": "/api/skills",
+    "description": "Get all the data on skill counts."
+  },
+  {
+    "route": "/api/skills/latest",
+    "description": "Get the latest data about in demand skills."
+  },
+  {
+    "route": "/api/skills/average",
+    "description": "Get the average of all the skill counts."
+  },
+  {
+    "route": "/api/skills/:skill",
+    "description": "Get all the data about a certain skill."
+  },
+  {
+    "route": "/api/skills/:skill/latest",
+    "description": "Get the latest data about a certain skill."
+  },
+  {
+    "route": "/api/skills/:skill/average",
+    "description": "Get the average of all the data about a ceratain skill."
+  }
+]

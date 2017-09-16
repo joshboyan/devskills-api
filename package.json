@@ -24,6 +24,7 @@
     "async": "^2.5.0",
     "body-parser": "^1.18.0",
     "cheerio": "^0.19.0",
+    "cors": "^2.8.4",
     "express": "^4.15.4",
     "mongodb": "^2.2.24",
     "mongoose": "^4.11.11",
