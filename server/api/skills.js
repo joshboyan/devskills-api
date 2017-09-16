@@ -56,11 +56,19 @@ skillsRouter.get('/average', (req, res) => {
 				return aggregate;
 			}
 
-			const total = counts[0].skills.map(skill => {
+			const totals = counts[0].skills.map(skill => {
 				return aggregateSkill(skill.name);
 			});
-
-			res.json(total);
+			
+			const average = totals.map(skill => {
+				return {
+					name: skill.name,
+					stackOverflow: skill.stackOverflow / counts.length,
+					indeed: skill.indeed / counts.length,
+					twitter: skill.twitter / counts.length
+				}
+			});
+			res.json(average);
 		}
     });
 }); 
@@ -93,7 +101,7 @@ skillsRouter.get('/:skill/latest', (req, res) => {
         if(err) {
 			console.log(err);
 		} else {
-			const latestSkill = count.filter(skill => {
+			const latestSkill = count.skills.filter(skill => {
 				return skill.name === req.params.skill;
 			});
 			res.json(latestSkill);
@@ -126,12 +134,21 @@ skillsRouter.get('/:skill/average', (req, res) => {
 			//Reduce all
 			const aggregate = requested.reduce( (accumulator, currentValue) => {
 				return {
-					name: req.params.name,
+					name: req.params.skill,
 					stackOverflow: accumulator.stackOverflow += currentValue.stackOverflow,
 					indeed: accumulator.indeed += currentValue.indeed,
 					twitter: accumulator.twitter += currentValue.twitter
 				}
 			}, initialValue);
+
+			const average =  {
+					name: aggregate.name,
+					stackOverflow: aggregate.stackOverflow / counts.length,
+					indeed: aggregate.indeed / counts.length,
+					twitter: aggregate.twitter / counts.length
+				}
+			
+			res.json(average);
 		}
 	});
 });
