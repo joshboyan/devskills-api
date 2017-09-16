@@ -1,10 +1,10 @@
 const express = require('express');
-const skillsRouter = express.Router();
+const countsRouter = express.Router();
 const config = require('../../config');
 const Count = require('../models/count');
 
 // Get all the data
-skillsRouter.get('/', (req, res) => {
+countsRouter.get('/', (req, res) => {
     Count.find({}, (err, counts) => {
 		if(err) {
 			console.log(err);
@@ -15,7 +15,7 @@ skillsRouter.get('/', (req, res) => {
 });
 
 // Get the latest data added
-skillsRouter.get('/latest', (req, res) => {
+countsRouter.get('/latest', (req, res) => {
     Count.findOne().sort({date: -1}).exec((err, count) => { 
         if(err) {
 			console.log(err);
@@ -26,7 +26,7 @@ skillsRouter.get('/latest', (req, res) => {
 });
 
 // Get average of all data
-skillsRouter.get('/average', (req, res) => {
+countsRouter.get('/average', (req, res) => {
 	Count.find({}, (err, counts) => {
 		if(err) {
 			console.log(err);
@@ -74,7 +74,7 @@ skillsRouter.get('/average', (req, res) => {
 }); 
 
 // Get all the data about a certain skill
-skillsRouter.get('/:skill', (req, res) => {
+countsRouter.get('/:skill', (req, res) => {
 	Count.find({}, (err, counts) => {
 		if(err) {
 			console.log(err);
@@ -96,7 +96,7 @@ skillsRouter.get('/:skill', (req, res) => {
 });
 
 // Get the latest data about a certain skill
-skillsRouter.get('/:skill/latest', (req, res) => {
+countsRouter.get('/:skill/latest', (req, res) => {
 	Count.findOne().sort({date: -1}).exec((err, count) => { 
         if(err) {
 			console.log(err);
@@ -110,7 +110,7 @@ skillsRouter.get('/:skill/latest', (req, res) => {
 });
 
 // Get average data for a certain skill
-skillsRouter.get('/:skill/average', (req, res) => {
+countsRouter.get('/:skill/average', (req, res) => {
 	Count.find({}, (err, counts) => {
 		if(err) {
 			console.log(err);
@@ -153,4 +153,4 @@ skillsRouter.get('/:skill/average', (req, res) => {
 	});
 });
 
-module.exports = skillsRouter;
+module.exports = countsRouter;

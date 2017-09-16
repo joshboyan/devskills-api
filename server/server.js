@@ -5,7 +5,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const path = require('path');
-const skillsRouter = require('./api/skills');
+const countsRouter = require('./api/counts');
 const resoucesRouter = require('./api/resources');
 const port = process.env.PORT || 3899;
 
@@ -45,7 +45,7 @@ mongoose.connect(config.dbURI, {
     }); 
 
 // API routes
-app.use('/skills', skillsRouter);
+app.use('/skills', countsRouter);
 app.use('/resouces', resoucesRouter)
 
 // Log errors
