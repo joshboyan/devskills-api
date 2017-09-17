@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const config = require('../config');
 
 function mongooseConnect() {
+  "use strict";
   mongoose.connect(config.dbURI, {
     useMongoClient: true
   });

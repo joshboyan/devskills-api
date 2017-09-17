@@ -1,5 +1,6 @@
 const express = require('express');
 const countsRouter = express.Router();
+const config = require('../../config');
 const Count = require('../models/count');
 
 // Get all the data
