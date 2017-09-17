@@ -14,6 +14,17 @@ const CountSchema = new mongoose.Schema({
 	}
 });
 
+CountSchema.pre('validate', (next) => {
+
+next();
+});
+
+CountSchema.post('save', (next)=> {
+	const count = this;
+	console.log("Count added", count);
+	next();
+});
+
 const CountModel = mongoose.model('counts', CountSchema);
 
 module.exports = CountModel;

@@ -12,14 +12,14 @@ class App extends Component {
       routes: routeData,
       selected: 0,
       skills: [], 
-      results: {}
+      results: []
     }
     this.handleFetch = this.handleFetch.bind(this);
   }
   handleFetch() {
     axios.get(this.state.routes[this.state.selected].route)
       .then(results => {
-        console.log('We fetched the data!', results);
+        console.log('We fetched the data!', results.data);
         this.setState({
           results: results.data
         });
@@ -73,7 +73,7 @@ class App extends Component {
                 <option value="aws">aws</option>
               </select> : null }
               <button onClick={ this.handleFetch }>Fetch Results</button>
-            <pre></pre>
+            <pre>{JSON.stringify(this.state.results, null, 2)}</pre>
           </Col>
         </Row>
           
