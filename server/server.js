@@ -5,7 +5,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const path = require('path');
-const cors = require('cors');
+const mongooseConnect = require('./mongooseConnect')
 const countsRouter = require('./api/counts');
 const skillRouter = require('./api/skills');
 const resoucesRouter = require('./api/resources');
@@ -14,7 +14,6 @@ const port = process.env.PORT || 3899;
 // App middleware
 app.use(morgan('dev'));
 app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
-app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(function (req, res, next) {
@@ -22,34 +21,8 @@ app.use(function (req, res, next) {
   next();
 });
 
-const mongoose = require('mongoose');
-mongoose.connect(config.dbURI, {
-	useMongoClient: true
-});
-
-// CONNECTION EVENTS
-// When successfully connected
-mongoose.connection.on('connected',  () =>  {  
-    console.log('Mongoose default connection open to ' + config.dbURI);
-}); 
-
-// If the connection throws an error
-mongoose.connection.on('error', err => {  
-    console.log('Mongoose default connection error: ' + err);
-}); 
-
-// When the connection is disconnected
-mongoose.connection.on('disconnected',  () =>  {  
-    console.log('Mongoose default connection disconnected'); 
-});
-
-// If the Node process ends, close the Mongoose connection 
-process.on('SIGINT', () => {  
-    mongoose.connection.close( () =>  { 
-        console.log('Mongoose default connection disconnected through app termination'); 
-        process.exit(0); 
-    }); 
-}); 
+// Open a connection to the database
+mongooseConnect();
 
 // Answer API requests.
 app.get('/api', function (req, res) {
