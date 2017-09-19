@@ -3,12 +3,14 @@ const skillRouter = express.Router();
 const Count = require('../models/count');
 
 // Get all the data about a certain skill
-skillRouter.get('/', (req, res) => {
+skillRouter.get('/:skill', (req, res) => {
 	Count.find({}, (err, counts) => {
 		if(err) {
 			console.log(err);
 		} else {
+			console.log(counts);
 			const requestedSkill = req.params.skill;
+			console.log(requestedSkill);
 			// This apply call flattens the array of arrays
 			const requested = [].concat.apply([], 
 				// Look thorugh each count array
@@ -25,7 +27,7 @@ skillRouter.get('/', (req, res) => {
 });
 
 // Get the latest data about a certain skill
-skillRouter.get('/latest', (req, res) => {
+skillRouter.get('/:skill/latest', (req, res) => {
 	Count.findOne().sort({date: -1}).exec((err, count) => { 
         if(err) {
 			console.log(err);
@@ -39,7 +41,7 @@ skillRouter.get('/latest', (req, res) => {
 });
 
 // Get average data for a certain skill
-skillRouter.get('/average', (req, res) => {
+skillRouter.get('/:skill/average', (req, res) => {
 	Count.find({}, (err, counts) => {
 		if(err) {
 			console.log(err);
@@ -77,7 +79,7 @@ skillRouter.get('/average', (req, res) => {
 					twitter: aggregate.twitter / counts.length
 				}
 			
-			res.json(average);
+			res.json([average]);
 		}
 	});
 });

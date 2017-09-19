@@ -32,7 +32,7 @@ app.get('/api', function (req, res) {
 
 // API routes
 app.use('/api/skills', countsRouter);
-app.use('api/skills/:skill', skillRouter);
+app.use('/api/skill', skillRouter);
 app.use('/api/resouces', resoucesRouter);
 
 // Serve the docs at the root URL

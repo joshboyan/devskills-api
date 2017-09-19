@@ -9,7 +9,10 @@ countsRouter.get('/', (req, res) => {
 		if(err) {
 			console.log(err);
 		} else {
-			res.json(counts);
+			const formatted = counts.map(count => {
+				return count.skills;
+			})
+			res.json(formatted);
 		}
     });
 });
@@ -20,7 +23,7 @@ countsRouter.get('/latest', (req, res) => {
         if(err) {
 			console.log(err);
 		} else {
-			res.json(count);
+			res.json(count.skills);
 		}
     });
 });
@@ -72,5 +75,6 @@ countsRouter.get('/average', (req, res) => {
 		}
     });
 }); 
+
 
 module.exports = countsRouter;
