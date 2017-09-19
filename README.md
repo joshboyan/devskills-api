@@ -1,6 +1,6 @@
-# devskills RESTful API
+# DevSkills microservice API
 
-This Nodejs program provides a RESTful API for information about what skills are trending in the development field.
+This Nodejs program provides a RESTful API for information about what skills are trending in the development field. The API built with MVC architecture to provide access to to microservices that power the DevSkills application which is under development.
 
 The API is built using expressjs for the server and HTTP endpoints to access a Mongo NoSQL database hosted on Heroku. The docs and examples for the API are built using React.
 
