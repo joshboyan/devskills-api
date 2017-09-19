@@ -5,7 +5,8 @@
   "main": "crawler.js",
   "scripts": {
     "test": "cd skillCounter && mocha && cd ../server && mocha && cd ../react-ui && npm test",
-    "start": "node server/server.js && cd react-ui && npm install && npm start",
+    "start": "node server/index.js",
+    "heroku-postbuild": "cd react-ui && npm install --only=dev && npm install && npm run build",
     "start-dev": "cd react-ui && npm start",
     "server": "nodemon server/server.js",
     "counter": "node skillCounter/index.js"
