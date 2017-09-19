@@ -96,8 +96,8 @@ class App extends Component {
               <select 
                 value={this.state.selectValue} 
                 onChange={this.handleSelectChange}>
-                {this.state.skills.map(skill => {
-                  return <option value={skill}>{skill}</option>
+                {this.state.skills.map((skill, i) => {
+                  return <option key={i} value={skill}>{skill}</option>
                 })}                
               </select> : null }
               <button 
