@@ -49,10 +49,6 @@ class App extends Component {
   }
 
   render() {
-    const active = {
-      textDecoration: 'none',
-      color: '#757575'
-    }
     return (
       <div className="App">
         <header>
@@ -63,7 +59,7 @@ class App extends Component {
         <Row>
           <Col xs={12} sm={4}>
             <div>
-              <p className='link' 
+              <p className={this.state.selected === 0 ? 'active link' : 'link'} 
                 onClick={ ()=> this.setState({selected: 0, results: []})}>Docs</p>
               <hr />
               <p>Routes</p>
@@ -73,7 +69,7 @@ class App extends Component {
                 return(
                 route.route ?
                   <li key={i}
-                    className='link'
+                    className={this.state.selected === i ? 'active link' : 'link'}                    
                     onClick={ () => this.setState({selected: i})}>
                     {route.route}
                   </li> :
@@ -93,8 +89,8 @@ class App extends Component {
           <Col xs={12}>
           { this.state.selected !== 0 ?
           <div>
-          <h3>Try it out</h3>
           <hr />
+          <h3>Try it out</h3>
               <div>fetch(https://devskillsapi.herokuapp.com{this.state.routes[this.state.selected].route.replace(':skill', this.state.selectValue)})</div>
               {this.state.selected > 3 ?
               <select 

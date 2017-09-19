@@ -21,11 +21,13 @@ h1, h4 {
 
 h3 {
   display: none;
+  padding-top: 12px;
 }
 
 header, 
 footer {
   display: flex;
+  justify-content: space-between;
   vertical-align: text-bottom;
   background: #D32F2F;
 }
@@ -35,7 +37,7 @@ header a:hover,
 footer a,
 footer a:hover {
   color: #FFF;
-  padding: 1em;
+  padding: 16px;
 }
 
 footer {
@@ -50,8 +52,21 @@ footer {
   padding: 6px 0;
 }
 
+.active {
+  text-decoration: none;
+  color: #757575;
+}
+
+.col-sm-4 {
+  border-right: 1px solid #EEE;
+}
+
 div.col-sm-8 p {
-  padding-bottom: 24px;
+  padding: 0 24px 24px 0;
+}
+
+.col-xs-12 div div {
+  padding-top: 12px;
 }
 
 select {
@@ -66,6 +81,14 @@ button {
   margin: 6px 0;
 }
 
+a:hover,
+.btn.focus, 
+.btn:focus, 
+.btn:hover {
+  color: #FFF;
+  text-decoration: none;
+}
+
 pre {
   margin-top: 12px;
 }
@@ -75,9 +98,6 @@ pre {
 }
 
 @media screen and (min-width: 450px){
-  header a {
-      justify-content: space-around;
-  }
   h3 {
     display: inline;
   }

@@ -32,7 +32,7 @@ const stackOverflow = new Promise((resolve, reject) => {
 	}
 	function formatResults(result) {
 		let noDigits = result.name.replace(/[0-9]/g, "");
-		let noDashes = noDots.replace(/\-/g, " ");
+		let noDashes = noDigits.replace(/\-/g, " ");
 		return (noDashes !== 'json') ? noDashes.replace("js", "") : noDashes;
 	}
 		// Create an array of objects form the list of tags to
