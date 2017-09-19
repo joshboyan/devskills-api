@@ -12,12 +12,28 @@ class App extends Component {
       routes: routeData,
       selected: 0,
       skills: [], 
+      selectValue: 'javascript',
       results: []
     }
     this.handleFetch = this.handleFetch.bind(this);
+    this.handleSelectChange = this.handleSelectChange.bind(this);
   }
+  componentDidMount() {
+    axios.get('/api/skills')
+    .then(counts => {
+      let skills = counts.data[counts.data.length-1].map(skill => {
+        return skill.name;
+      })
+      return skills;
+    }).then(skills => {
+      this.setState({
+        skills: skills
+      });
+    }).catch(err => { console.error(err) })
+  }
+
   handleFetch() {
-    axios.get(this.state.routes[this.state.selected].route)
+    axios.get(this.state.routes[this.state.selected].route.replace(':skill', this.state.selectValue))
       .then(results => {
         console.log('We fetched the data!', results.data);
         this.setState({
@@ -27,10 +43,19 @@ class App extends Component {
         console.error('There was a problem fetching the data', err);
       });
   }
+
+  handleSelectChange(event) {
+    this.setState({selectValue: event.target.value});
+  }
+
   render() {
+    const active = {
+      textDecoration: 'none',
+      color: '#757575'
+    }
     return (
       <div className="App">
-        <header className="dark-primary-color text-primary-color">
+        <header>
           <h1><a href="/">DevSkills API</a></h1>
           <h3><a href="#" target="_blank">App</a></h3>
         </header>
@@ -38,7 +63,8 @@ class App extends Component {
         <Row>
           <Col xs={12} sm={4}>
             <div>
-              <p onClick={ ()=> this.setState({selected: 0})}>Docs</p>
+              <p className='link' 
+                onClick={ ()=> this.setState({selected: 0, results: []})}>Docs</p>
               <hr />
               <p>Routes</p>
             </div>
@@ -47,6 +73,7 @@ class App extends Component {
                 return(
                 route.route ?
                   <li key={i}
+                    className='link'
                     onClick={ () => this.setState({selected: i})}>
                     {route.route}
                   </li> :
@@ -56,28 +83,39 @@ class App extends Component {
             </ul>
           </Col> 
           <Col xs={12} sm={8}>
-            <h2>{this.state.routes[this.state.selected].route}</h2>
+            {this.state.selected === 0 ? 
+              <h2>Docs</h2> : 
+              <h2>{this.state.routes[this.state.selected].route}</h2>}
             <p>{this.state.routes[this.state.selected].description}</p>
           </Col> 
         </Row>
         <Row>
           <Col xs={12}>
+          { this.state.selected !== 0 ?
+          <div>
           <h3>Try it out</h3>
           <hr />
-              <div>fetch(https://devskillsapi.herokuapp.com{this.state.routes[this.state.selected].route})</div>
+              <div>fetch(https://devskillsapi.herokuapp.com{this.state.routes[this.state.selected].route.replace(':skill', this.state.selectValue)})</div>
               {this.state.selected > 3 ?
-              <select>
-                <option value="java">java</option>
-                <option value="python">python</option>
-                <option value="php">php</option>
-                <option value="aws">aws</option>
+              <select 
+                value={this.state.selectValue} 
+                onChange={this.handleSelectChange}>
+                {this.state.skills.map(skill => {
+                  return <option value={skill}>{skill}</option>
+                })}                
               </select> : null }
-              <button onClick={ this.handleFetch }>Fetch Results</button>
+              <button 
+                className='btn'
+                onClick={ this.handleFetch }>Fetch Results</button>
             <pre>{JSON.stringify(this.state.results, null, 2)}</pre>
+            </div> : null
+          }
           </Col>
-        </Row>
-          
+        </Row>          
         </main>
+        <footer className={this.state.selected === 0 ? 'footer': null}>
+          <a href='joshboyan.com'>&copy; Josh Boyan 2017</a>
+        </footer>
       </div>
     );
   }

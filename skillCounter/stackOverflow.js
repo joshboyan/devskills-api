@@ -32,7 +32,6 @@ const stackOverflow = new Promise((resolve, reject) => {
 	}
 	function formatResults(result) {
 		let noDigits = result.name.replace(/[0-9]/g, "");
-		let noDots = noDigits.replace(/\./g, "");
 		let noDashes = noDots.replace(/\-/g, " ");
 		return (noDashes !== 'json') ? noDashes.replace("js", "") : noDashes;
 	}

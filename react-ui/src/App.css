@@ -7,6 +7,14 @@
 .secondary-text-color  { color: #757575; }
 .divider-color         { border-color: #BDBDBD; }
 
+.App {
+  font-size: 18px;
+  color: #212121;
+}
+
+main {
+  padding: 18px;
+}
 h1, h4 {
   display: inline;
 }
@@ -15,24 +23,70 @@ h3 {
   display: none;
 }
 
-header {
+header, 
+footer {
   display: flex;
-  justify-content: space-around;
   vertical-align: text-bottom;
+  background: #D32F2F;
 }
 
-header a {
+header a,
+header a:hover,
+footer a,
+footer a:hover {
   color: #FFF;
   padding: 1em;
 }
 
+footer {
+  clear: both;
+}
+
+.link {
+  color: #D32F2F;
+  cursor: pointer;
+  list-style-type: none;
+  text-decoration: underline;
+  padding: 6px 0;
+}
+
+div.col-sm-8 p {
+  padding-bottom: 24px;
+}
+
+select {
+  width: 115px;
+  margin: 10px 100% 10px 0;
+}
+
+button {
+  clear: both;
+  background-color: #D32F2F;
+  color: #FFF;
+  margin: 6px 0;
+}
+
+pre {
+  margin-top: 12px;
+}
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
 
 @media screen and (min-width: 450px){
+  header a {
+      justify-content: space-around;
+  }
   h3 {
     display: inline;
+  }
+}
+
+@media screen and (min-width: 768px){
+  .footer {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
   }
 }
