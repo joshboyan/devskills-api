@@ -9,9 +9,18 @@ module.exports = {
   },
   "extends": "eslint:recommended",
   "rules": {
+    "keyword-spacing": ["error", {
+			"overrides": {
+				"if": { "after": false },
+				"for": { "after": false },
+				"while": { "after": false }
+			}
+		}],
+    "space-before-blocks": ["error", "always"],
+    "object-curly-spacing": ["error", "always"],
     "no-multiple-empty-lines": "warn",
     "no-var": "warn",
     "prefer-const": "warn",
-		"no-console": "warn"
+    "no-console": "off"
   }
 };

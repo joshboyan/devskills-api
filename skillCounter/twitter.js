@@ -8,10 +8,10 @@ const HashtagCount = require('hashtag-count');
 const email = require('./email');
 
 // Wrap the promise is a function so we can pass arguments to it
-const twitter = skillCounter => { 
+const twitter = skillCounter => {
 	'use strict';
 
-	return new Promise((resolve, reject) => {
+	return new Promise(resolve => {
 
 		let updatedSkills;
 		const hc = new HashtagCount({
@@ -25,26 +25,26 @@ const twitter = skillCounter => {
 		const hashtags = skillCounter.map(skill => {
 		return skill.name;
 		});
-		
-		// Hashtag tallies for each time interval will be added to the results object. 
+
+		// Hashtag tallies for each time interval will be added to the results object.
 		const interval = '60 minutes';
 
-		// Stop running after this amount of time has passed. 
+		// Stop running after this amount of time has passed.
 		const limit = '60 minutes';
-		
-		// Called after time limit has been reached. 
+
+		// Called after time limit has been reached.
 		const finishedCb = (err, results) => {
-		if (err) {
+		if(err) {
 			email('There was a problem listening to the twitter streaming API', err);
-			console.error(err);      
+			console.error(err);
 		}
 			// Get the first key in the results object
 			let innerResults;
-			for (let key in results) {
+			for(const key in results) {
 				innerResults = results[key];
 				break;
 			}
-			
+
 			// Add the Twitter relusts to the skillCounter array
 			updatedSkills = skillCounter.map(skill => {
 			skill.twitter = innerResults[skill.name];
@@ -54,13 +54,13 @@ const twitter = skillCounter => {
 		// Move on in promise
 		resolve(updatedSkills);
 		};
-		
-		// Open a connection to Twitter's Streaming API and start capturing tweets! 
+
+		// Open a connection to Twitter's Streaming API and start capturing tweets!
 		hc.start({
-		hashtags: hashtags,       // required 
-		interval: interval,       // required 
-		limit: limit,             // optional 
-		finishedCb: finishedCb,   // optional 
+		hashtags: hashtags,       // required
+		interval: interval,       // required
+		limit: limit,             // optional
+		finishedCb: finishedCb,   // optional
 		});
 	});
 }

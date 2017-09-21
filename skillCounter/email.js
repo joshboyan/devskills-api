@@ -1,5 +1,5 @@
 /**
- * This module sets up the error message emails for when the program is 
+ * This module sets up the error message emails for when the program is
  * running on the server unsupervised.
  */
 const config = require('../config');
@@ -23,12 +23,12 @@ const email = (message, err) => {
 		to: config.user,
 		subject: 'Message from devskills API',
 		html: '<p>' + message + '</p>' +
-			'<p>' + err + '</p>'           
+			'<p>' + err + '</p>'
 	};
 
 	// Send the mail
-	transporter.sendMail(emailMessage, function(err, info){
-		if(err){
+	transporter.sendMail(emailMessage, function(err, info) {
+		if(err) {
 			return console.log(err);
 		}
 		console.log('Message sent: ' + info.response);

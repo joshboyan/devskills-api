@@ -1,7 +1,7 @@
 const express = require('express');
 const countsRouter = express.Router();
-const config = require('../../config');
 const Count = require('../models/count');
+const aggregateSkill = require('./lib/aggregateSkill');
 
 // Get all the data
 countsRouter.get('/', (req, res) => {
@@ -19,7 +19,7 @@ countsRouter.get('/', (req, res) => {
 
 // Get the latest data added
 countsRouter.get('/latest', (req, res) => {
-    Count.findOne().sort({date: -1}).exec((err, count) => { 
+    Count.findOne().sort({ date: -1 }).exec((err, count) => {
         if(err) {
 			console.log(err);
 		} else {
@@ -34,35 +34,10 @@ countsRouter.get('/average', (req, res) => {
 		if(err) {
 			console.log(err);
 		} else {
-			function aggregateSkill(skillName) {
-				const requested = [].concat.apply([], counts.map(count =>{
-					return count.skills.filter( skill => {
-						return skill.name === skillName;
-					});
-				}));
-
-				let initialValue = {
-					name: skillName,
-					stackOverflow: 0,
-					indeed: 0,
-					twitter: 0
-				}
-				const aggregate = requested.reduce( (accumulator, currentValue) => {
-					return {
-						name: skillName,
-						stackOverflow: accumulator.stackOverflow += currentValue.stackOverflow,
-						indeed: accumulator.indeed += currentValue.indeed,
-						twitter: accumulator.twitter += currentValue.twitter
-					}
-				}, initialValue);
-								
-				return aggregate;
-			}
-
 			const totals = counts[0].skills.map(skill => {
-				return aggregateSkill(skill.name);
+				return aggregateSkill(skill.name, counts);
 			});
-			
+
 			const average = totals.map(skill => {
 				return {
 					name: skill.name,
@@ -74,7 +49,6 @@ countsRouter.get('/average', (req, res) => {
 			res.json(average);
 		}
     });
-}); 
-
+});
 
 module.exports = countsRouter;

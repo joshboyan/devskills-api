@@ -12,7 +12,7 @@ skillRouter.get('/:skill', (req, res) => {
 			const requestedSkill = req.params.skill;
 			console.log(requestedSkill);
 			// This apply call flattens the array of arrays
-			const requested = [].concat.apply([], 
+			const requested = [].concat.apply([],
 				// Look thorugh each count array
 				counts.map(count =>{
 					// Return the requested skill object from each array
@@ -28,7 +28,7 @@ skillRouter.get('/:skill', (req, res) => {
 
 // Get the latest data about a certain skill
 skillRouter.get('/:skill/latest', (req, res) => {
-	Count.findOne().sort({date: -1}).exec((err, count) => { 
+	Count.findOne().sort({ date: -1 }).exec((err, count) => {
         if(err) {
 			console.log(err);
 		} else {
@@ -48,7 +48,7 @@ skillRouter.get('/:skill/average', (req, res) => {
 		} else {
 			const requestedSkill = req.params.skill;
 			// This apply call flattens the array of arrays
-			const requested = [].concat.apply([], 
+			const requested = [].concat.apply([],
 				// Look thorugh each count array
 				counts.map(count =>{
 					// Return the requested skill object from each array
@@ -57,7 +57,7 @@ skillRouter.get('/:skill/average', (req, res) => {
 					});
 				})
 			);
-			let initialValue = {
+			const initialValue = {
 				stackOverflow: 0,
 				indeed: 0,
 				twitter: 0
@@ -78,7 +78,7 @@ skillRouter.get('/:skill/average', (req, res) => {
 					indeed: aggregate.indeed / counts.length,
 					twitter: aggregate.twitter / counts.length
 				}
-			
+
 			res.json([average]);
 		}
 	});

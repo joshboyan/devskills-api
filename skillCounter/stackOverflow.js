@@ -9,10 +9,10 @@ const stackexchange = require('stackexchange');
 const email = require('./email');
 
 //Create a promise to initialize the chain
-const stackOverflow = new Promise((resolve, reject) => {
-	'use strict';  
-		
-	const skillCounter = []; 
+const stackOverflow = new Promise(resolve => {
+	'use strict';
+
+	const skillCounter = [];
 	const options = { version: 2.2 };
 	const context = new stackexchange(options);
 
@@ -26,20 +26,20 @@ const stackOverflow = new Promise((resolve, reject) => {
 
 	// Get the top 100 tags
 	context.tags.tags(filter, (err, results) => {
-		if (err) {
+		if(err) {
 		email('There was a problem accessing stackoverflow API', err);
-		throw err;    
+		throw err;
 	}
 	function formatResults(result) {
-		let noDigits = result.name.replace(/[0-9]/g, "");
-		let noDashes = (noDigits !== 'asp.net') ? noDigits.replace(/\-/g, " ") : noDigits;
+		const noDigits = result.name.replace(/[0-9]/g, "");
+		const noDashes = (noDigits !== 'asp.net') ? noDigits.replace(/-/g, " ") : noDigits;
 		return (noDashes !== 'json') ? noDashes.replace("js", "") : noDashes;
 	}
 		// Create an array of objects form the list of tags to
 		// contain all the data aggregated
 		results.items.map(result => {
-		let formatedName = formatResults(result);
-		let skill = {
+		const formatedName = formatResults(result);
+		const skill = {
 			name : formatedName,
 			stackOverflow : result.count,
 			indeed : 0,

@@ -13,7 +13,7 @@ const port = process.env.PORT || 3899;
 // App middleware
 app.use(morgan('dev'));
 app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(function (req, res, next) {
   res.header("Content-Type",'application/json');
@@ -47,7 +47,7 @@ app.get('*', function(request, response) {
 
 // Log errors
 app.use((err, req, res) => {
-	if(err){
+	if(err) {
 		console.log(err);
 		res.status(500).send(err);
 	}

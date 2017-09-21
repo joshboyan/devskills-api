@@ -9,7 +9,7 @@
     "heroku-postbuild": "cd react-ui && npm install --only=dev && npm install && npm run build",
     "start-dev": "cd react-ui && npm start",
     "server": "nodemon server/ --exec eslint && node",
-    "counter": "node skillCounter/ --exec eslint && node"
+    "counter": "node skillCounter/"
   },
   "repository": {
     "type": "git",

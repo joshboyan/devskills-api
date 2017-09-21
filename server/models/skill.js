@@ -1,4 +1,4 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 const SkillSchema = new mongoose.Schema({
   name : {
@@ -6,19 +6,17 @@ const SkillSchema = new mongoose.Schema({
     required: true
   },
   stackOverflow : {
-    type: Number, 
+    type: Number,
     required: true
   },
   indeed : {
-    type: Number, 
+    type: Number,
     required: true
   },
   twitter : {
-    type: Number, 
+    type: Number,
     required: true
   }
 });
-
-const SkillModel = mongoose.model('skills', SkillSchema);
 
 module.exports = SkillSchema;
