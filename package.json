@@ -4,8 +4,7 @@
   "description": "Crawler that scrapes indeed.com for web developer keywords",
   "main": "crawler.js",
   "scripts": {
-    "test": "cd skillCounter && mocha && cd ../server && mocha && cd ../react-ui && npm test",
-    "eslint": "eslint",
+    "test": "mocha --recursive",
     "start": "node server/index.js",
     "heroku-postbuild": "cd react-ui && npm install --only=dev && npm install && npm run build",
     "start-dev": "cd react-ui && npm start",

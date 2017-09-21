@@ -1,5 +1,4 @@
 'use strict';
-const config = require('../config');
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -47,14 +46,14 @@ app.get('*', function(request, response) {
 
 
 // Log errors
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
 	if(err){
 		console.log(err);
 		res.status(500).send(err);
 	}
 });
 
-app.listen(port, 
-  	console.log('API listening on port:', port));
+app.listen(port,
+	console.log('API listening on port:', port));
 
 module.exports = app;
