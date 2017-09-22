@@ -1,13 +1,18 @@
-const counts = [
+const aggregateSkill = require('../../../api/lib/aggregateSkill');
+const expect = require('chai').expect;
+
+describe('./server/api/lib/aggregateSkills function', function(){
+	const skillName = 'javascript';
+	const counts = [
     {
         "_id": "59bc3cdd8474a60b1cf5ac0e",
         "__v": 0,
         "skills": [
             {
                 "name": "javascript",
-                "stackOverflow": 1471335,
-                "indeed": 433,
-                "twitter": 187,
+                "stackOverflow": 100,
+                "indeed": 33,
+                "twitter": 18,
                 "_id": "59bc3cdd8474a60b1cf5ac72"
             },
             {
@@ -32,9 +37,9 @@ const counts = [
         "skills": [
             {
                 "name": "javascript",
-                "stackOverflow": 1471335,
-                "indeed": 433,
-                "twitter": 187,
+                "stackOverflow": 100,
+                "indeed": 33,
+                "twitter": 80,
                 "_id": "59bc3cdd8474a60b1cf5ac72"
             },
             {
@@ -54,38 +59,23 @@ const counts = [
         ]
     }
 ]
-counts.map(count =>{
-  return count.skills.filter( skill => {
-    return skill.name === 'javascript';
-  });
+
+	it('Returns an object', function(){
+		const result = aggregateSkill(skillName, counts);
+		expect(result).to.be.an('object');
+	});
+
+	it('Returns an undefined without a valid skillName argument', function(){
+		const result = aggregateSkill('error', counts);
+		expect(result).to.be.an('object');
+	});
+
+	it('Returns the skills counted correctly in the object', function(){
+		const result = aggregateSkill(skillName, counts);
+		expect(result).to.deep.equal({
+								"name": "javascript",
+                "stackOverflow": 200,
+                "indeed": 66,
+                "twitter": 98})
+	});
 });
-function reduceIt(skillName) {
-const requested = [].concat.apply([], counts.map(count =>{
-  return count.skills.filter( skill => {
-    return skill.name === skillName;
-  });
-}));
-
-let initialValue = {
-  name: skillName,
-  stackOverflow: 0,
-  indeed: 0,
-  twitter: 0
-}
-const aggregate = requested.reduce( (accumulator, currentValue) => {
-  return {
-    name: skillName,
-    stackOverflow: accumulator.stackOverflow += currentValue.stackOverflow,
-    indeed: accumulator.indeed += currentValue.indeed,
-    twitter: accumulator.twitter += currentValue.twitter
-  }
-}, initialValue);
-			//console.log(aggregate);
-      return aggregate;
-}
-
-var total = counts[0].skills.map(skill => {
-  return reduceIt(skill.name);
-});
-
-console.log(total);
