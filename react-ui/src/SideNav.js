@@ -31,5 +31,7 @@ export const SideNav = ({ routes, selected, updateSideNavLinks }) => {
 }
 
 SideNav.PropTypes = {
-
+	routes: PropTypes.array,
+	selected: PropTypes.number,
+	updateSideNavLinks: PropTypes.func
 }

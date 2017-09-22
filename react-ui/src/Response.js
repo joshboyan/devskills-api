@@ -29,5 +29,11 @@ export const Response = ({
 }
 
 Response.PropTypes = {
-
+	selected: PropTypes.number,
+	routes: PropTypes.array,
+	selectValue: PropTypes.string,
+	handleSelectChange: PropTypes.func,
+	skills: PropTypes.array,
+	handleFetch: PropTypes.func,
+	results: PropTypes.array
 }

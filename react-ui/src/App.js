@@ -48,7 +48,6 @@ class App extends Component {
   }
 
 	updateSideNavLinks(linkState) {
-		console.log(linkState);
 		this.setState({
 			selected: linkState.selected,
 			results: []
