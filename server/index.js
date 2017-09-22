@@ -7,7 +7,6 @@ const path = require('path');
 const mongooseConnect = require('./mongooseConnect')
 const countsRouter = require('./api/counts');
 const skillRouter = require('./api/skills');
-const resoucesRouter = require('./api/resources');
 const port = process.env.PORT || 3899;
 
 // App middleware
@@ -32,7 +31,6 @@ app.get('/api', function (req, res) {
 // API routes
 app.use('/api/skills', countsRouter);
 app.use('/api/skill', skillRouter);
-app.use('/api/resouces', resoucesRouter);
 
 // Serve the docs at the root URL
 app.get('/', function(request, response) {

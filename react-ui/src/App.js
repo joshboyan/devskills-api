@@ -4,6 +4,8 @@ import './App.css';
 import 'react-bootstrap';
 import routeData from './data.json';
 import axios from 'axios';
+import { SideNav } from './SideNav';
+import { Response } from './Response';
 
 class App extends Component {
   constructor(){
@@ -11,11 +13,12 @@ class App extends Component {
     this.state = {
       routes: routeData,
       selected: 0,
-      skills: [], 
+      skills: [],
       selectValue: 'javascript',
       results: []
     }
     this.handleFetch = this.handleFetch.bind(this);
+		this.updateSideNavLinks = this.updateSideNavLinks.bind(this);
     this.handleSelectChange = this.handleSelectChange.bind(this);
   }
   componentDidMount() {
@@ -44,6 +47,14 @@ class App extends Component {
       });
   }
 
+	updateSideNavLinks(linkState) {
+		console.log(linkState);
+		this.setState({
+			selected: linkState.selected,
+			results: []
+		});
+	}
+
   handleSelectChange(event) {
     this.setState({selectValue: event.target.value});
   }
@@ -58,56 +69,30 @@ class App extends Component {
         <main>
         <Row>
           <Col xs={12} sm={4}>
-            <div>
-              <p className={this.state.selected === 0 ? 'active link' : 'link'} 
-                onClick={ ()=> this.setState({selected: 0, results: []})}>Docs</p>
-              <hr />
-              <p>Routes</p>
-            </div>
-            <ul>
-              {this.state.routes.map((route, i) => {
-                return(
-                route.route ?
-                  <li key={i}
-                    className={this.state.selected === i ? 'active link' : 'link'}                    
-                    onClick={ () => this.setState({selected: i})}>
-                    {route.route}
-                  </li> :
-                  null
-                )
-              })}
-            </ul>
-          </Col> 
+					<SideNav
+						routes={ this.state.routes }
+						selected={ this.state.selected }
+						updateSideNavLinks={ this.updateSideNavLinks }/>
+          </Col>
           <Col xs={12} sm={8}>
-            {this.state.selected === 0 ? 
-              <h2>Docs</h2> : 
+            {this.state.selected === 0 ?
+              <h2>Docs</h2> :
               <h2>{this.state.routes[this.state.selected].route}</h2>}
             <p>{this.state.routes[this.state.selected].description}</p>
-          </Col> 
+          </Col>
         </Row>
         <Row>
           <Col xs={12}>
-          { this.state.selected !== 0 ?
-          <div>
-          <hr />
-          <h3>Try it out</h3>
-              <div>fetch(https://devskillsapi.herokuapp.com{this.state.routes[this.state.selected].route.replace(':skill', this.state.selectValue)})</div>
-              {this.state.selected > 3 ?
-              <select 
-                value={this.state.selectValue} 
-                onChange={this.handleSelectChange}>
-                {this.state.skills.map((skill, i) => {
-                  return <option key={i} value={skill}>{skill}</option>
-                })}                
-              </select> : null }
-              <button 
-                className='btn'
-                onClick={ this.handleFetch }>Fetch Results</button>
-            <pre>{JSON.stringify(this.state.results, null, 2)}</pre>
-            </div> : null
-          }
+						<Response
+							selected={ this.state.selected }
+							routes={ this.state.routes }
+							skills={ this.state.skills }
+							selectedValue={ this.state.selectValue }
+							results={ this.state.results }
+							handleSelectChange={ this.handleSelectChange }
+							handleFetch={ this.handleFetch } />
           </Col>
-        </Row>          
+        </Row>
         </main>
         <footer className={this.state.selected === 0 ? 'footer': null}>
           <a href='joshboyan.com'>&copy; Josh Boyan 2017</a>
