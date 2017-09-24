@@ -8,9 +8,7 @@ skillRouter.get('/:skill', (req, res) => {
 		if(err) {
 			console.log(err);
 		} else {
-			console.log(counts);
 			const requestedSkill = req.params.skill;
-			console.log(requestedSkill);
 			// This apply call flattens the array of arrays
 			const requested = [].concat.apply([],
 				// Look thorugh each count array
