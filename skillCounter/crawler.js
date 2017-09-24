@@ -14,20 +14,20 @@ const crawler = twitterSkills => {
 
     return new Promise(resolve => {
 
-        const START_URL = 'https://www.indeed.com/q-developer-l-remote-jobs.html';
-        const MAX_PAGES_TO_VISIT = 3;
+        const startURL = 'https://www.indeed.com/q-developer-l-remote-jobs.html';
+        const maxPagesToVisit = 3;
         const pagesVisited = {};
         let numPagesVisited = 0;
         const pagesToVisit = [];
-        const url = new URL(START_URL);
+        const url = new URL(startURL);
         const baseUrl = url.protocol + '//' + url.hostname;
 
-        pagesToVisit.push(START_URL);
+        pagesToVisit.push(startURL);
         crawl();
 
         function crawl() {
             // Something has gone wirng if we are crawling this many pages so stop
-            if(numPagesVisited >= MAX_PAGES_TO_VISIT) {
+            if(numPagesVisited >= maxPagesToVisit) {
                 resolve(twitterSkills);
                 console.log('Reached max limit of number of pages to visit.');
                 return;
