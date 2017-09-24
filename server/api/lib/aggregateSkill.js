@@ -1,9 +1,11 @@
 function aggregateSkill(skillName, counts) {
-	const requested = [].concat.apply([], counts.map(count =>{
+	const requested = [].concat.apply([],
+	counts.map(count =>{
 		return count.skills.filter( skill => {
 			return skill.name === skillName;
 		});
-	}));
+	})
+	);
 
 	const initialValue = {
 		name: skillName,

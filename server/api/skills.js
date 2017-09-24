@@ -1,6 +1,8 @@
 const express = require('express');
 const skillRouter = express.Router();
 const Count = require('../models/count');
+const aggregateSkill = require('./lib/aggregateSkill');
+const averageSkill = require('./lib/averageSkill');
 
 // Get all the data about a certain skill
 skillRouter.get('/:skill', (req, res) => {
@@ -44,38 +46,10 @@ skillRouter.get('/:skill/average', (req, res) => {
 		if(err) {
 			console.log(err);
 		} else {
-			const requestedSkill = req.params.skill;
-			// This apply call flattens the array of arrays
-			const requested = [].concat.apply([],
-				// Look thorugh each count array
-				counts.map(count =>{
-					// Return the requested skill object from each array
-					return count.skills.filter( skill => {
-						return skill.name === requestedSkill;
-					});
-				})
-			);
-			const initialValue = {
-				stackOverflow: 0,
-				indeed: 0,
-				twitter: 0
-			}
-			//Reduce all
-			const aggregate = requested.reduce( (accumulator, currentValue) => {
-				return {
-					name: req.params.skill,
-					stackOverflow: accumulator.stackOverflow += currentValue.stackOverflow,
-					indeed: accumulator.indeed += currentValue.indeed,
-					twitter: accumulator.twitter += currentValue.twitter
-				}
-			}, initialValue);
+			const skillName = req.params.skill;
+			const total = aggregateSkill(skillName, counts);
 
-			const average =  {
-					name: aggregate.name,
-					stackOverflow: aggregate.stackOverflow / counts.length,
-					indeed: aggregate.indeed / counts.length,
-					twitter: aggregate.twitter / counts.length
-				}
+			const average = averageSkill(total, counts.length);
 
 			res.json([average]);
 		}

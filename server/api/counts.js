@@ -2,6 +2,7 @@ const express = require('express');
 const countsRouter = express.Router();
 const Count = require('../models/count');
 const aggregateSkill = require('./lib/aggregateSkill');
+const averageSkill = require('./lib/averageSkill');
 
 // Get all the data
 countsRouter.get('/', (req, res) => {
@@ -38,13 +39,8 @@ countsRouter.get('/average', (req, res) => {
 				return aggregateSkill(skill.name, counts);
 			});
 
-			const average = totals.map(skill => {
-				return {
-					name: skill.name,
-					stackOverflow: skill.stackOverflow / counts.length,
-					indeed: skill.indeed / counts.length,
-					twitter: skill.twitter / counts.length
-				}
+			const average = totals.map(total => {
+				return averageSkill(total, counts.length);
 			});
 			res.json(average);
 		}
