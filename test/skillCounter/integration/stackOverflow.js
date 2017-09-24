@@ -1,7 +1,7 @@
 const { stackOverflow, formatResults } = require('../../../skillCounter/stackOverflow');
 const expect = require('chai').expect;
 
-describe('./skillCounter/integration/stackOverflow', function() {
+describe('./test/skillCounter/integration/stackOverflow', function() {
 
 	it('Returns an array of 100 skills', function(){
 		this.timeout(10000);

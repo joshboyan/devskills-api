@@ -1,7 +1,7 @@
 const { formatResults, createObject } = require('../../../skillCounter/stackOverflow');
 const expect = require('chai').expect;
 
-describe('./skillCounter/unit/stackOverflow', function() {
+describe('./test/skillCounter/unit/stackOverflow', function() {
 
 	context('formatResults()', function() {
 

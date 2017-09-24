@@ -7,13 +7,30 @@ const config = require('../config');
 const HashtagCount = require('hashtag-count');
 const email = require('./email');
 
+const addTwitterResults = function(skillCounter, results) {
+
+	// Get the first key in the results object
+	let innerResults;
+	for(const key in results) {
+		innerResults = results[key];
+		break;
+	}
+
+	// Add the Twitter relusts to the skillCounter array
+	const updatedSkills = skillCounter.map(skill => {
+		skill.twitter = innerResults[skill.name];
+		return skill;
+	});
+	return updatedSkills;
+}
+
 // Wrap the promise is a function so we can pass arguments to it
-const twitter = skillCounter => {
+const twitter = (skillCounter, timer) => {
 	'use strict';
 
 	return new Promise(resolve => {
 
-		let updatedSkills;
+
 		const hc = new HashtagCount({
 		'consumer_key': config.consumer_key,
 		'consumer_secret': config.consumer_secret,
@@ -21,16 +38,16 @@ const twitter = skillCounter => {
 		'access_token_secret': config.access_token_secret
 		});
 
-		// Create rray of hashtags to tally from skillCounter object
+		// Create array of hashtags to tally from skillCounter object
 		const hashtags = skillCounter.map(skill => {
 		return skill.name;
 		});
 
 		// Hashtag tallies for each time interval will be added to the results object.
-		const interval = '60 minutes';
+		const interval = timer;
 
 		// Stop running after this amount of time has passed.
-		const limit = '60 minutes';
+		const limit = timer;
 
 		// Called after time limit has been reached.
 		const finishedCb = (err, results) => {
@@ -38,21 +55,9 @@ const twitter = skillCounter => {
 			email('There was a problem listening to the twitter streaming API', err);
 			console.error(err);
 		}
-			// Get the first key in the results object
-			let innerResults;
-			for(const key in results) {
-				innerResults = results[key];
-				break;
-			}
 
-			// Add the Twitter relusts to the skillCounter array
-			updatedSkills = skillCounter.map(skill => {
-			skill.twitter = innerResults[skill.name];
-			return skill;
-			});
-		console.log('Add in twitter skills', updatedSkills);
 		// Move on in promise
-		resolve(updatedSkills);
+		resolve(addTwitterResults(skillCounter, results));
 		};
 
 		// Open a connection to Twitter's Streaming API and start capturing tweets!
@@ -65,4 +70,4 @@ const twitter = skillCounter => {
 	});
 }
 
-module.exports = twitter;
+module.exports = { addTwitterResults, twitter };
