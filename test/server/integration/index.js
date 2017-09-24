@@ -1,7 +1,7 @@
 /**
  * Integration tests for index.js server directory entry point
  */
-var app = require('../index.js');
+var app = require('../../../server/index.js');
 var expect = require('chai').expect;
 var request = require('supertest');
 

@@ -121,6 +121,7 @@ const crawler = twitterSkills => {
         }
 
         function collectInternalLinks($) {
+						// This is how job listings are organized on linked in
             const relativeLinks = $('.result h2 a');
             const nextListings = $('.pagination a').last();
             console.log('Found ' + relativeLinks.length + ' job entries on page');
