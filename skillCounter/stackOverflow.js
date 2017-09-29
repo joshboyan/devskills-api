@@ -43,7 +43,7 @@ const stackOverflow = new Promise(resolve => {
 		key: config.key,
 		site: 'stackoverflow',
 		pagesize: 100,
-		sort: 'activity', //popular
+		sort: 'popular', //activity
 		order: 'desc'
 	};
 
