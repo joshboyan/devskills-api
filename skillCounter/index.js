@@ -1,6 +1,6 @@
 'use strict';
 const { stackOverflow } = require('./stackOverflow');
-const twitter = require('./twitter');
+const { twitter } = require('./twitter');
 const crawler = require('./crawler');
 const databasePush = require('./databasePush');
 const email = require('./email');
