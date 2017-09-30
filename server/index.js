@@ -7,6 +7,7 @@ const path = require('path');
 const mongooseConnect = require('./mongooseConnect');
 const passport = require('passport');
 const jwt = require('jwt-simple');
+const config = require('../config');
 const User = require('./models/user');
 const countsRouter = require('./api/counts');
 const skillRouter = require('./api/skills');
@@ -32,7 +33,7 @@ require('./passport')(passport);
 // Answer API requests.
 app.get('/api', function (req, res) {
   res.set('Content-Type', 'application/json');
-  res.send('{"message": "This is the base route for the DevSkills API. Remove directories from the URL to get to the docs."}');
+  res.json({ message: 'This is the base route for the DevSkills API. Remove directories from the URL to get to the docs.' });
 });
 
 // API routes
@@ -47,14 +48,15 @@ app.post('/api/users', (req, res) => {
   } else {
     const newUser = new User({
       email: req.body.email,
-      password: req.body.password
+      password: req.body.password,
+			key: jwt.encode(req.body.password, config.secret)
     });
     // save the user
     newUser.save(function(err) {
       if(err) {
         return res.json({ success: false, msg: 'Username already exists.' });
       }
-      res.json({ success: true, msg: 'Successful created new user.' + JSON.stringify(newUser) });
+      res.json({ success: true, msg: 'Successful created new user.', key: newUser.token });
     });
   }
 });
