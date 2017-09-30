@@ -26,6 +26,9 @@ app.use(function (req, res, next) {
 // Open a connection to the database
 mongooseConnect();
 
+// pass passport for configuration
+require('./passport')(passport);
+
 // Answer API requests.
 app.get('/api', function (req, res) {
   res.set('Content-Type', 'application/json');
@@ -33,8 +36,28 @@ app.get('/api', function (req, res) {
 });
 
 // API routes
+// Info about all the skills
 app.use('/api/skills', countsRouter);
+// Info about a specfic skill
 app.use('/api/skill', skillRouter);
+// User sign up and key retrieval
+app.post('/api/users', (req, res) => {
+	if(!req.body.email || !req.body.password) {
+    res.json({ success: false, msg: 'Please submit email and password.' });
+  } else {
+    const newUser = new User({
+      email: req.body.email,
+      password: req.body.password
+    });
+    // save the user
+    newUser.save(function(err) {
+      if(err) {
+        return res.json({ success: false, msg: 'Username already exists.' });
+      }
+      res.json({ success: true, msg: 'Successful created new user.' + JSON.stringify(newUser) });
+    });
+  }
+});
 
 // Serve the docs at the root URL
 app.get('/', function(request, response) {
@@ -48,11 +71,12 @@ app.get('*', function(request, response) {
 
 
 // Log errors
-app.use((err, req, res) => {
+app.use((err, req, res, next) => {
 	if(err) {
-		console.log(err);
-		res.status(500).send(err);
+		console.log(err.statusMessage);
+		res.sendStatus(500).send(err);
 	}
+	next();
 });
 
 app.listen(port,
