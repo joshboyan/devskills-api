@@ -4,7 +4,10 @@ const app = express();
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const path = require('path');
-const mongooseConnect = require('./mongooseConnect')
+const mongooseConnect = require('./mongooseConnect');
+const passport = require('passport');
+const jwt = require('jwt-simple');
+const User = require('./models/user');
 const countsRouter = require('./api/counts');
 const skillRouter = require('./api/skills');
 const port = process.env.PORT || 3899;
@@ -14,6 +17,7 @@ app.use(morgan('dev'));
 app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(passport.initialize());
 app.use(function (req, res, next) {
   res.header("Content-Type",'application/json');
   next();
