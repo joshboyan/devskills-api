@@ -23,4 +23,27 @@ usersRouter.post('/', ( req, res ) => {
   }
 });
 
+// Allow users to access their key
+usersRouter.post('/key', (req, res) => {
+	User.findOne({
+    name: req.body.name
+  }, function(err, user) {
+    if(err) throw err;
+
+    if(!user) {
+      res.json({ success: false, msg: 'Authentication failed. User not found.' });
+    } else {
+      // check if password matches
+      user.comparePassword(req.body.password, (err, isMatch) => {
+        if(isMatch && !err) {
+          // return the information including token
+          res.json({ success: true, key: user.key });
+        } else {
+          res.json({ success: false, msg: 'Authentication failed. Wrong password.' });
+        }
+      });
+    }
+  });
+})
+
 module.exports = usersRouter;

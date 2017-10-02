@@ -9,7 +9,7 @@ export const Response = ({
           <div>
           <hr />
           <h3>Try it out</h3>
-              <div>fetch(https://devskillsapi.herokuapp.com{ routes[selected].route.replace(':skill', selectValue) })</div>
+              <div>fetch(https://devskillsapi.herokuapp.com{ routes[selected].route.replace(':skill', selectValue) }?key=yourUniqueKey)</div>
               { selected > 3 ?
               <select
                 value={ selectValue }
