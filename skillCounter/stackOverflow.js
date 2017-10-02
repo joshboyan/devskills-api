@@ -13,7 +13,7 @@ const email = require('./email');
 const formatResults = function(result) {
 	const noDigits = result.replace(/[0-9]/g, "");
 	const noDashes = noDigits.replace(/-/g, " ");
-	const noDots = (noDashes !== 'asp.net') ? noDigits.replace(/\./g, " ") : noDashes;
+	const noDots = (noDashes !== 'asp.net') ? noDigits.replace(/\./g, "") : noDashes;
 	return (noDots !== 'json') ? noDots.replace("js", "") : noDots;
 }
 

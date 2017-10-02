@@ -19,6 +19,10 @@ h1, h4 {
   display: inline;
 }
 
+h2 {
+	padding-bottom: 24px;
+}
+
 h3 {
   display: none;
   padding-top: 12px;
@@ -98,8 +102,26 @@ pre {
   margin-top: 12px;
 }
 
-.form-control-feedback.glyphicon.glyphicon-remove {
+.form-control-feedback.glyphicon.glyphicon-remove,
+.form-control-feedback.glyphicon.glyphicon-ok {
 	top: 40px;
+}
+
+form {
+	max-width: 300px;
+	background: #EFEFEF;
+	border: 1px solid #BDBDBD;
+	border-radius: 4px;
+	padding: 24px;
+	margin-bottom: 48px;
+}
+form button {
+	margin-left: 70%;
+}
+
+span {
+	font-size: 12px;
+	color: #757575;
 }
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }

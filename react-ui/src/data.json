@@ -26,18 +26,18 @@
     "route": "/api/skill/:skill",
     "description": ["Get all the data about a certain skill.",
 			"This route returns an array.",
-			"Replace ':/skill' with a valid skill in the database for your AJAX call. See dropdown box below for currently available skills."]
+			"Replace ':/skill' with a valid skill in the database for your AJAX call. See drop-down box below for currently available skills."]
   },
   {
     "route": "/api/skill/:skill/latest",
     "description": ["Get the latest data about a certain skill.",
 			"This route returns an array.",
-			"Replace ':/skill' with a valid skill in the database for your AJAX call. See dropdown box below for currently available skills."]
+			"Replace ':/skill' with a valid skill in the database for your AJAX call. See drop-down box below for currently available skills."]
   },
   {
     "route": "/api/skill/:skill/average",
     "description": ["Get the average of all the data about a certain skill.",
 			"This route returns an array.",
-			"Replace ':/skill' with a valid skill in the database for your AJAX call. See dropdown box below for currently available skills."]
+			"Replace ':/skill' with a valid skill in the database for your AJAX call. See drop-down box below for currently available skills."]
   }
 ]

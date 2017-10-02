@@ -23,7 +23,7 @@ class App extends Component {
     this.handleSelectChange = this.handleSelectChange.bind(this);
   }
   componentDidMount() {
-    axios.get('/api/skills')
+    axios.get('/api/skills?key=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.Impvc2gxMSI.3I3e5kumdTCtVDTXkCLdh1WQGZGzkmIRhl7EPa4mirc')
     .then(counts => {
       let skills = counts.data[counts.data.length-1].map(skill => {
         return skill.name;
@@ -37,7 +37,7 @@ class App extends Component {
   }
 
   handleFetch() {
-    axios.get(this.state.routes[this.state.selected].route.replace(':skill', this.state.selectValue))
+    axios.get(this.state.routes[this.state.selected].route.replace(':skill', this.state.selectValue).concat('?key=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.Impvc2gxMSI.3I3e5kumdTCtVDTXkCLdh1WQGZGzkmIRhl7EPa4mirc'))
       .then(results => {
         console.log('We fetched the data!', results.data);
         this.setState({
@@ -88,7 +88,7 @@ class App extends Component {
 							selected={ this.state.selected }
 							routes={ this.state.routes }
 							skills={ this.state.skills }
-							selectedValue={ this.state.selectValue }
+							selectValue={ this.state.selectValue }
 							results={ this.state.results }
 							handleSelectChange={ this.handleSelectChange }
 							handleFetch={ this.handleFetch } />
