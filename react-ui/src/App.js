@@ -5,6 +5,7 @@ import 'react-bootstrap';
 import routeData from './data.json';
 import axios from 'axios';
 import { SideNav } from './SideNav';
+import { Docs } from './Docs';
 import { Response } from './Response';
 
 class App extends Component {
@@ -70,14 +71,15 @@ class App extends Component {
           <Col xs={12} sm={4}>
 					<SideNav
 						routes={ this.state.routes }
-						selected={ this.state.selected }
 						updateSideNavLinks={ this.updateSideNavLinks }/>
           </Col>
           <Col xs={12} sm={8}>
-            {this.state.selected === 0 ?
-              <h2>Docs</h2> :
-              <h2>{this.state.routes[this.state.selected].route}</h2>}
-            <p>{this.state.routes[this.state.selected].description}</p>
+            { this.state.selected < 2 ?
+							<Docs selected={this.state.selected} /> :
+						<h2>{ this.state.routes[this.state.selected].route }</h2> }
+            { this.state.routes[this.state.selected].description.map(statement => {
+							return <p>{statement}</p>
+						}) }
           </Col>
         </Row>
         <Row>

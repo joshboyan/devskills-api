@@ -24,7 +24,7 @@ h3 {
   padding-top: 12px;
 }
 
-header, 
+header,
 footer {
   display: flex;
   justify-content: space-between;
@@ -38,23 +38,16 @@ footer a,
 footer a:hover {
   color: #FFF;
   padding: 16px;
+	text-decoration: none;
 }
 
 footer {
   clear: both;
 }
 
-.link {
-  color: #D32F2F;
-  cursor: pointer;
+li {
   list-style-type: none;
-  text-decoration: underline;
   padding: 6px 0;
-}
-
-.active {
-  text-decoration: none;
-  color: #757575;
 }
 
 .col-sm-4 {
@@ -81,9 +74,21 @@ button {
   margin: 6px 0;
 }
 
-a:hover,
-.btn.focus, 
-.btn:focus, 
+a {
+	color: #F44336;
+}
+
+a:hover {
+ color:	#D32F2F;
+}
+
+a:active,
+a:focus {
+	color: #757575;
+	text-decoration: none;
+}
+.btn.focus,
+.btn:focus,
 .btn:hover {
   color: #FFF;
   text-decoration: none;
@@ -91,6 +96,10 @@ a:hover,
 
 pre {
   margin-top: 12px;
+}
+
+.form-control-feedback.glyphicon.glyphicon-remove {
+	top: 40px;
 }
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
@@ -103,7 +112,7 @@ pre {
   }
 }
 
-@media screen and (min-width: 768px){
+@media screen and (min-width: 1025px){
   .footer {
     width: 100%;
     position: absolute;

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { BrowserRouter, Link, Route} from 'react-router-dom';
+import { BrowserRouter, Link } from 'react-router-dom';
 
 export const SideNav = ({ routes, updateSideNavLinks }) => {
 
@@ -9,9 +9,15 @@ export const SideNav = ({ routes, updateSideNavLinks }) => {
 
 	<BrowserRouter>
 	<div>
-		<Link to={'/'}
+		<Link to={'/docs'}
 			onClick={ () => updateSideNavLinks({selected: 0})}>
 			Docs
+		</Link>
+		<br />
+		<br />
+		<Link to={'/key'}
+			onClick={ () => updateSideNavLinks({selected: 1})}>
+			API Key
 		</Link>
 		<hr />
 		<p>Routes</p>

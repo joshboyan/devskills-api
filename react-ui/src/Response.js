@@ -5,7 +5,7 @@ export const Response = ({
 	selected, routes, selectValue, handleSelectChange, skills, handleFetch, results }) => {
 	return (
 		<div>
-			{ selected !== 0 ?
+			{ selected > 1 ?
           <div>
           <hr />
           <h3>Try it out</h3>

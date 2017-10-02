@@ -1,30 +1,43 @@
 [
   {
     "route": null,
-    "description": "This is a RESTful API for accessing the latest trends in developer skills. This information is and aggregate of three sources. The Stack Exchange API that gives the latest data on tags used to mark questions. Listening to Twitters streaming API for how many times each of the top tags on Stack Overflow are hashtagged. Finally a node crawler scrapes the first 500 job entries for 'Remote Developer' and counts how often each of these search terms comes up. The main reason this API is built is to power the DevSkills app but it is open for anyone to use. If you come up with a novel way to use or mashup up this information I would love to hear about it. Any issues should be opened on https://gitub.com/joshboyan/crawler/issues."
+    "description": []
+  },
+  {
+    "route": null,
+    "description": []
   },
   {
     "route": "/api/skills",
-    "description": "Get all the data on skill counts."
+    "description": ["Get all the data on skill counts.",
+			"This route returns an array of arrays."]
   },
   {
     "route": "/api/skills/latest",
-    "description": "Get the latest data about in demand skills."
+    "description": ["Get the latest data about in demand skills.",
+			"This route returns an array."]
   },
   {
     "route": "/api/skills/average",
-    "description": "Get the average of all the skill counts."
+    "description": ["Get the average of all the skill counts.",
+			"This route returns an array."]
   },
   {
     "route": "/api/skill/:skill",
-    "description": "Get all the data about a certain skill."
+    "description": ["Get all the data about a certain skill.",
+			"This route returns an array.",
+			"Replace ':/skill' with a valid skill in the database for your AJAX call. See dropdown box below for currently available skills."]
   },
   {
     "route": "/api/skill/:skill/latest",
-    "description": "Get the latest data about a certain skill."
+    "description": ["Get the latest data about a certain skill.",
+			"This route returns an array.",
+			"Replace ':/skill' with a valid skill in the database for your AJAX call. See dropdown box below for currently available skills."]
   },
   {
     "route": "/api/skill/:skill/average",
-    "description": "Get the average of all the data about a ceratain skill."
+    "description": ["Get the average of all the data about a certain skill.",
+			"This route returns an array.",
+			"Replace ':/skill' with a valid skill in the database for your AJAX call. See dropdown box below for currently available skills."]
   }
 ]
