@@ -16,7 +16,7 @@ const addTwitterResults = function(skillCounter, results) {
 		break;
 	}
 
-	// Add the Twitter relusts to the skillCounter array
+	// Add the Twitter results to the skillCounter array
 	const updatedSkills = skillCounter.map(skill => {
 		skill.twitter = innerResults[skill.name];
 		return skill;
