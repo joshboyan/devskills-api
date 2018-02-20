@@ -1,94 +1,116 @@
-import React , { Component } from 'react';
-import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
+import React, { Component } from 'react';
+import { 
+	FormGroup, 
+	FormControl, 
+	ControlLabel, 
+	HelpBlock } from 'react-bootstrap';
 import axios from 'axios';
 
 export class Form extends Component {
-  constructor() {
-		super();
-		this.state = {
-			emailValue: '',
-			passwordValue: '',
-			key: null
-		}
-		this.getValidationState = this.getValidationState.bind(this);
-		this.handleEmailChange = this.handleEmailChange.bind(this);
-		this.handlePasswordChange = this.handlePasswordChange.bind(this);
-		this.createUser = this.createUser.bind(this);
+  state = {
+		email: '',
+		validEmail: true,
+		password: '',
+		validPassword: true,
+		key: null
 	}
 
-  getValidationState() {
-    const email = this.state.emailValue;
-    if (/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)) {
-			return 'success';
+  emailValidation = () => {
+    if (/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(this.state.email)) {
+			this.setState({ validEmail: true })
+			return true
 		} else {
-			return 'error';
+			this.setState({ validEmail: false })
 		}
+	}
+
+	passwordValidation = () => {
+		if(this.state.password.length > 5) {
+			console.log(this.state.password)
+			this.setState({ validPassword: true })
+			return true
+		} else {
+			console.log(this.state.password)
+			this.setState({ validPassword: false })
+		}
+	}
+
+  handleEmailChange = e => {
+    this.setState({ email: e.target.value });
   }
 
-  handleEmailChange(e) {
-    this.setState({ emailValue: e.target.value });
+  handlePasswordChange = e => {
+    this.setState({ password: e.target.value });
   }
 
-  handlePasswordChange(e) {
-    this.setState({ passwordValue: e.target.value });
-  }
-
-	createUser(e) {
+	createUser = e => {
+		const { email, password } = this.state;
+		const validEmail = this.emailValidation();
+		const validPassword = this.passwordValidation()
 		e.preventDefault();
-		if (/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(this.state.emailValue)) {
+		if (validEmail && validPassword) {
 			axios.post('/api/users', {
-				email: this.state.emailValue,
-				password: this.state.passwordValue
-			}).then( key => {
+				email,
+				password
+			})
+			.then( key => {
 				this.setState({
 					key: [key.data]
 				});
-			}).catch( err => { console.error(err) })
+			})
+			.catch( err => { console.error(err) })
 		} else {
 			console.warn("Fill out the form!!");
 		}
 	}
 
   render() {
+		const {
+			email,
+			validEmail,
+			password,
+			validPassword,
+			key } = this.state;
+
     return (
 			<div>
-				{ !this.state.key ?
+				{ !key ?
 				<div>
 				<p>Sign up for a key to use the DevSkills API. AddThe key is in the form of a JSON web token. Just add a query parameter of 'key' with the entire web token to use.</p>
 				<p>For example:</p>
 				<p>fetch(https://devskillsapi.herokuapp.com/api/skills?key=yourUniqueKey)</p>
 				<form onSubmit={ this.createUser }>
-					<FormGroup
-						controlId="formBasicText"
-						validationState={ this.getValidationState() }
-					>
+					<FormGroup controlId="email">
 						<ControlLabel>Enter a Valid Email</ControlLabel>
 						<FormControl
 							type="text"
-							value={ this.state.emailValue }
+							value={ email }
 							placeholder="Enter a Valid Email"
 							onChange={ this.handleEmailChange }
+							className={ !validEmail ? 'has-error' : ''}
 						/>
-						<FormControl.Feedback />
+						<div role="alert">	
+							{ !validEmail && <HelpBlock>Please enter a valid email.</HelpBlock> }
+						</div>
 					</FormGroup>
-					<FormGroup
-						controlId="formBasicText"
-					>
-						<ControlLabel>Create a Password</ControlLabel>
+					<FormGroup controlId="password">
+						<ControlLabel>Create a password</ControlLabel>
 						<FormControl
 							type="text"
-							value={ this.state.passwordValue }
+							value={ password }
 							placeholder="Create a Password"
 							onChange={ this.handlePasswordChange }
+							className={ !validPassword ? 'has-error' : ''}
 						/>
+						<div role="alert">
+							{ !validPassword && <HelpBlock>Create a password at least 5 characters long.</HelpBlock> }
+						</div>
 					</FormGroup>
-					<button
-						className='btn'
-					>Get Key</button>
+					<button	className='btn'>Get Key</button>
 				</form>
 				<span>I will never use your email for evil or sell/distribute/loan it to anyone. I hate spam too!</span>
 			</div>
-			: <pre>{ JSON.stringify(this.state.key, null, 2) }</pre> }
+			: <pre>{ JSON.stringify(key, null, 2) }</pre> }
 			</div>
     );
   }
