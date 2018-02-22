@@ -22,6 +22,7 @@ body {
 }
 
 main {
+  min-height: 88vh;
   padding: 18px;
 }
 h1, h4 {
@@ -43,6 +44,7 @@ footer {
   justify-content: space-between;
   vertical-align: text-bottom;
   background: #D32F2F;
+  min-height: 6vh;
 }
 
 header a,
@@ -56,7 +58,6 @@ footer a:hover {
 
 footer {
   clear: both;
-  height: 50px;
 }
 
 li {

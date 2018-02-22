@@ -25,12 +25,14 @@ export class Form extends Component {
 	}
 
 	passwordValidation = () => {
-		if(this.state.password.length > 5) {
-			console.log(this.state.password)
+		const { password } = this.state;
+
+		if(password.length > 5) {
+			console.log(password)
 			this.setState({ validPassword: true })
 			return true
 		} else {
-			console.log(this.state.password)
+			console.log(password)
 			this.setState({ validPassword: false })
 		}
 	}
@@ -47,6 +49,7 @@ export class Form extends Component {
 		const { email, password } = this.state;
 		const validEmail = this.emailValidation();
 		const validPassword = this.passwordValidation()
+		
 		e.preventDefault();
 		if (validEmail && validPassword) {
 			axios.post('/api/users', {
@@ -75,43 +78,49 @@ export class Form extends Component {
     return (
 			<div>
 				{ !key ?
-				<div>
-				<p>Sign up for a key to use the DevSkills API. AddThe key is in the form of a JSON web token. Just add a query parameter of 'key' with the entire web token to use.</p>
-				<p>For example:</p>
-				<p>fetch(https://devskillsapi.herokuapp.com/api/skills?key=yourUniqueKey)</p>
-				<form onSubmit={ this.createUser }>
-					<FormGroup controlId="email">
-						<ControlLabel>Enter a Valid Email</ControlLabel>
-						<FormControl
-							type="text"
-							value={ email }
-							placeholder="Enter a Valid Email"
-							onChange={ this.handleEmailChange }
-							className={ !validEmail ? 'has-error' : ''}
-						/>
-						<div role="alert">	
-							{ !validEmail && <HelpBlock>Please enter a valid email.</HelpBlock> }
-						</div>
-					</FormGroup>
-					<FormGroup controlId="password">
-						<ControlLabel>Create a password</ControlLabel>
-						<FormControl
-							type="text"
-							value={ password }
-							placeholder="Create a Password"
-							onChange={ this.handlePasswordChange }
-							className={ !validPassword ? 'has-error' : ''}
-						/>
-						<div role="alert">
-							{ !validPassword && <HelpBlock>Create a password at least 5 characters long.</HelpBlock> }
-						</div>
-					</FormGroup>
-					<button	className='btn'>Get Key</button>
-				</form>
-				<span>I will never use your email for evil or sell/distribute/loan it to anyone. I hate spam too!</span>
+					<div>
+						<p>Sign up for a key to use the DevSkills API. AddThe key is in the form of a JSON web token. Just add a query parameter of 'key' with the entire web token to use.</p>
+						<p>For example:</p>
+						<p>fetch(https://devskillsapi.herokuapp.com/api/skills?key=yourUniqueKey)</p>
+						
+						<form onSubmit={ this.createUser }>
+							
+							<FormGroup controlId="email">
+								<ControlLabel>Enter a Valid Email</ControlLabel>
+								<FormControl
+									type="text"
+									value={ email }
+									placeholder="Enter a Valid Email"
+									onChange={ this.handleEmailChange }
+									className={ !validEmail ? 'has-error' : ''}
+								/>
+								<div role="alert">	
+									{ !validEmail && <HelpBlock>Please enter a valid email.</HelpBlock> }
+								</div>
+							</FormGroup>
+
+							<FormGroup controlId="password">
+								<ControlLabel>Create a password</ControlLabel>
+								<FormControl
+									type="text"
+									value={ password }
+									placeholder="Create a Password"
+									onChange={ this.handlePasswordChange }
+									className={ !validPassword ? 'has-error' : ''}
+								/>
+								<div role="alert">
+									{ !validPassword && <HelpBlock>Create a password at least 5 characters long.</HelpBlock> }
+								</div>
+							</FormGroup>
+							
+							<button	className='btn'>Get Key</button>
+						</form>
+
+						<span>I will never use your email for evil or sell/distribute/loan it to anyone. I hate spam too!</span>
+					</div>
+					: <pre>{ JSON.stringify(key, null, 2) }</pre> 
+				}
 			</div>
-			: <pre>{ JSON.stringify(key, null, 2) }</pre> }
-			</div>
-    );
+    )
   }
 }
