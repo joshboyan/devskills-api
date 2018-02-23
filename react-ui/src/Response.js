@@ -7,7 +7,7 @@ export const Response = ({
 		<div>
 			{ 
         selected > 1 &&
-        <div>
+        <div className='response'>
           <hr />
           <h3>Try it out</h3>
           <div>fetch('https://devskills-api.herokuapp.com{ routes[selected].route.replace(':skill', selectValue)}?key=yourUniqueKey')</div>

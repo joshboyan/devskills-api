@@ -27,12 +27,10 @@ export class Form extends Component {
 	passwordValidation = () => {
 		const { password } = this.state;
 
-		if(password.length > 5) {
-			console.log(password)
+		if(password.length > 4) {
 			this.setState({ validPassword: true })
 			return true
 		} else {
-			console.log(password)
 			this.setState({ validPassword: false })
 		}
 	}

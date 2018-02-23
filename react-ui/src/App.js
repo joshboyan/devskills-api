@@ -87,7 +87,7 @@ export default class App extends PureComponent {
                   <h2>{ routes[selected].route }</h2> 
               }
               { 
-                routes[selected].description.map(statement => <p>{ statement }</p>) 
+                routes[selected].description.map((statement, i) => <p key={ i }>{ statement }</p>) 
               }
             </Col>
           </Row>
@@ -101,7 +101,7 @@ export default class App extends PureComponent {
                 selectValue={ selectValue }
                 results={ results }
                 handleSelectChange={ this.handleSelectChange }
-                handleFetch={ this.handleFetch } />
+                handleFetch={ this.handleFetch }/>
             </Col>
           </Row>
         </main>

@@ -102,6 +102,12 @@ a:focus {
 	color: #757575;
 	text-decoration: none;
 }
+
+.response {
+  width: 100%;
+  padding-left: 50px;
+}
+
 .btn.focus,
 .btn:focus,
 .btn:hover {

@@ -34,7 +34,8 @@ export const SideNav = ({ routes, updateSideNavLinks }) => {
 						routes.map((route, i) => (
 						route.route &&
 							<li key={ i }>
-								<Link to={ `/routes${route.route}` }
+								<Link 
+									to={ `/routes${route.route}` }
 									onClick={ () => updateSideNavLinks({ selected: i }) }>
 									{route.route}
 								</Link>
